@@ -82,13 +82,6 @@ python scripts/exportar_reporte.py
 python scripts/generar_evidencia_escenarios.py
 ```
 
-## Cómo compilar el informe
-
-```bash
-pdflatex informe_escenario8.tex
-pdflatex informe_escenario8.tex   # segunda pasada para el índice
-```
-
 ## Principales hallazgos
 
 | Indicador | Valor |

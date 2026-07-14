@@ -50,13 +50,6 @@ reportes/
     └── priorizacion_tareas.png    # Gráfico de priorización generado
 ```
 
-## Cómo compilar el informe
-
-```bash
-pdflatex informe_escenario5.tex
-pdflatex informe_escenario5.tex   # segunda pasada para el índice
-```
-
 ## Principales hallazgos
 
 | Indicador | Valor |

@@ -51,13 +51,6 @@ reportes/
 └── informe_escenario4.pdf         # Informe compilado (entregable)
 ```
 
-## Cómo compilar el informe
-
-```bash
-pdflatex informe_escenario4.tex
-pdflatex informe_escenario4.tex   # segunda pasada para el índice
-```
-
 ## Principales hallazgos
 
 | Indicador | Valor |

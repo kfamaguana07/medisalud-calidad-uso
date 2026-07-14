@@ -77,13 +77,6 @@ python scripts/01_validacion_datos.py
 python scripts/generar_evidencia_escenarios.py
 ```
 
-## Cómo compilar el informe
-
-```bash
-pdflatex informe_escenario7.tex
-pdflatex informe_escenario7.tex   # segunda pasada para el índice
-```
-
 ## Principales hallazgos
 
 | Indicador | Valor |

@@ -73,13 +73,6 @@ python3 analisis_incidentes.py
 Esto regenera las tablas de conteo (por módulo, rol y sede) y los dos gráficos usados en el
 informe. Requiere el archivo `incidentes_2025_iso_25022.csv` en el mismo directorio.
 
-## Cómo compilar el informe
-
-```bash
-pdflatex informe_escenario3.tex
-pdflatex informe_escenario3.tex   # segunda pasada para el índice
-```
-
 Requiere `pdflatex` (TeX Live) y los paquetes `tikz`, `tcolorbox`, `booktabs`, `tabularx`, entre
 otros estándar de una distribución LaTeX completa.
 
