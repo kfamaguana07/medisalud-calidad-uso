@@ -1,4 +1,4 @@
-﻿"""
+"""
 Modulo de calculo de metricas de Calidad en Uso (ISO/IEC 25022)
 para el sistema MediSalud HIS.
 

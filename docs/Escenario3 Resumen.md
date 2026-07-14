@@ -42,6 +42,14 @@ evaluación más cercano a la experiencia real del usuario.
    institucional usados en el resto del taller (logo ESPE, datos de asignatura y equipo), que
    documenta todo lo anterior de forma detallada.
 
+## Preguntas de Discusión
+
+**1. ¿Puede un sistema tener excelente calidad interna (código limpio) y mala calidad en uso? Explique con un ejemplo.**
+Sí. Un sistema puede tener código limpio, baja complejidad ciclomática y cobertura de pruebas unitarias alta (calidad interna), pero ser inusable en producción. Por ejemplo, el módulo HCE de MediSalud puede estar bien escrito, pero si un médico tarda 22 segundos en guardar una nota en hora pico, la calidad en uso es deficiente porque la tarea real no se completa con eficiencia. La calidad interna no garantiza calidad en uso.
+
+**2. ¿Por qué SonarQube (calidad interna) no es suficiente para que MediSalud resuelva su problemática de lentitud percibida por los médicos?**
+Porque SonarQube mide atributos estáticos del código (complejidad, duplicación, vulnerabilidades), pero no puede medir el tiempo que un médico real tarda en registrar una nota clínica durante una consulta con 30 pacientes esperando. La lentitud percibida no es un defecto de código: es una propiedad emergente del sistema en un contexto de uso específico (hora pico, sede con alta carga, red interna). Solo una métrica de Calidad en Uso como la definida en ISO/IEC 25022 puede capturar esa realidad.
+
 ## Estructura de archivos
 
 ```
@@ -80,8 +88,8 @@ otros estándar de una distribución LaTeX completa.
 | Indicador | Valor |
 |---|---|
 | Total de incidentes analizados | 3,006 |
-| Módulo con más incidentes | HCE (769, 25.6%) |
-| Sede con más incidentes | Quito (1,035) |
+| Módulo con más incidentes | HCE (771, 25.6%) |
+| Sede con más incidentes | Quito (1,037) |
 | Incidentes de "nota de evolución tarda Xs" | 64 |
 | Tiempo promedio reportado | 22.1 s |
 | Umbral definido en RNF-01 | 8.0 s |

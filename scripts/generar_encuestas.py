@@ -1,4 +1,4 @@
-﻿"""
+"""
 Genera un log sintetico de respuestas de encuestas de satisfaccion CSAT.
 """
 import csv

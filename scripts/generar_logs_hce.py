@@ -1,4 +1,4 @@
-﻿"""
+"""
 Genera un log sintetico de eventos de registro de notas de evolucion clinica
 en el modulo HCE de MediSalud HIS, simulando 5 dias habiles y 5 sedes.
 """

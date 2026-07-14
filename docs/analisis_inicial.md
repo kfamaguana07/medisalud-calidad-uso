@@ -26,3 +26,9 @@ Los tres se benefician, pero de forma distinta:
 - El **médico** gana en eficiencia y reduce el riesgo de errores clínicos por lentitud del sistema.
 - El **paciente** gana en satisfacción y confianza (menos abandono en telemedicina, agendamiento más simple).
 - La **gerencia** es quizás la más beneficiada de forma estratégica, porque hoy toma decisiones "por percepción" y el programa le da evidencia objetiva para priorizar inversiones de TI, negociar con aseguradoras y cumplir objetivos de negocio (reducir tiempos de HCE, bajar errores de facturación, aumentar finalización de teleconsultas). Sin datos, la gerencia no puede gestionar la calidad; con ellos, puede tomar decisiones basadas en evidencia en lugar de suposiciones.
+
+-----
+
+### Conclusiones Parciales
+
+Este primer escenario estableció el marco de trabajo del taller y evidenció que las decisiones de TI en MediSalud Ecuador carecen de sustento medible, apoyándose únicamente en la disponibilidad técnica (uptime) sin considerar la experiencia real del usuario. Se identificaron los tres procesos más críticos (registro de HCE, facturación y telemedicina), los usuarios más afectados (médicos, pacientes y personal de admisión) y las brechas de evidencia que el programa de medición basado en ISO/IEC 25022 deberá cerrar. Los escenarios siguientes dotarán al equipo del marco normativo y las herramientas necesarias para implementar un sistema de medición de Calidad en Uso que transforme la cultura de "percepción" a una cultura de decisiones basadas en datos observables.
