@@ -1,0 +1,417 @@
+﻿--- PAGE 1 ---
+Departamento de Ciencias de la Computaci¾n
+IngenierÝa de Software
+Escenario 3: Comprensi¾n del Modelo SQuaRE
+Medici¾n de la Calidad en Uso mediante ISO/IEC 25022
+Caso de estudio: Red Hospitalaria MediSalud Ecuador
+Asignatura:
+Aseguramiento de la Calidad del Software
+NRC:
+30733
+Docente:
+Ing. Diego Gamboa
+Repositorio:
+https://github.com/kfamaguana07/medisalud-calidad-uso.git
+Integrantes
+Kevin Amagua±a
+Jairo Bonilla
+Darwin Panchez
+Eduardo Mortensen
+Universidad de las Fuerzas Armadas ESPE
+Julio 2026
+
+--- PAGE 2 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+Contents
+1
+Introducci¾n
+2
+2
+Marco Te¾rico: la Familia ISO/IEC 25000 (SQuaRE)
+2
+2.1
+"QuÚ es SQuaRE?
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+2.2
+Relaci¾n entre ISO/IEC 25010 y 25022 . . . . . . . . . . . . . . . . . . . . . . . .
+2
+3
+Investigaci¾n Dirigida: Niveles de Calidad de Software
+3
+3.1
+Calidad Interna . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.2
+Calidad Externa
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+3.3
+Calidad en Uso . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+4
+Aplicaci¾n al Caso MediSalud HIS
+3
+5
+Mapa Conceptual de la Familia SQuaRE
+4
+5.1
+Interpretaci¾n del Mapa . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+6
+Evidencia EmpÝrica: Anßlisis del Dataset de Incidentes 2025
+5
+6.1
+Distribuci¾n de incidentes por m¾dulo . . . . . . . . . . . . . . . . . . . . . . . .
+5
+6.2
+Distribuci¾n de incidentes por sede . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+6.3
+Contraste cuantitativo con el requerimiento RNF-01
+. . . . . . . . . . . . . . . .
+6
+6.4
+Descripciones mßs recurrentes en el m¾dulo HCE . . . . . . . . . . . . . . . . . .
+7
+7
+Preguntas de Discusi¾n
+7
+8
+Conclusiones
+8
+1
+
+--- PAGE 3 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+1
+Introducci¾n
+El presente informe desarrolla, de manera ampliada y detallada, el Escenario 3 del taller prßctico
+Medici¾n de la Calidad en Uso mediante ISO/IEC 25022, cuyo prop¾sito es ubicar conceptual-
+mente a la norma ISO/IEC 25022 dentro de la familia completa ISO/IEC 25000 (SQuaRE) y
+comprender c¾mo esta se relaciona con el modelo de calidad definido en la ISO/IEC 25010.
+A diferencia del informe base entregado previamente, este documento incorpora un anßlisis
+cuantitativo adicional a partir del conjunto de datos de incidentes reportados durante el a±o
+2025 en el sistema MediSalud HIS (incidentes_2025_iso_25022.csv), con el fin de sustentar
+empÝricamente por quÚ la Calidad en Uso constituye el nivel de evaluaci¾n mßs cercano al negocio
+y al paciente, y c¾mo los tres niveles de calidad del modelo SQuaRE (interna, externa y en uso)
+se articulan en un caso real de una red hospitalaria.
+Todo el material prßctico asociado a este taller se encuentra alojado en el repositorio oficial
+del grupo: https://github.com/kfamaguana07/medisalud-calidad-uso.git.
+Objetivo del escenario
+Ubicar a ISO/IEC 25022 dentro de la familia completa ISO/IEC 25000 (SQuaRE), diferenciando
+claramente entre modelo de calidad, medici¾n de calidad, requerimientos y evaluaci¾n de calidad,
+de modo que el estudiante comprenda el marco normativo completo en el que se inserta el taller, y
+sea capaz de sustentar dicha comprensi¾n con evidencia proveniente de datos reales de operaci¾n.
+2
+Marco Te¾rico: la Familia ISO/IEC 25000 (SQuaRE)
+2.1
+"QuÚ es SQuaRE?
+SQuaRE (Software product Quality Requirements and Evaluation) es la familia de normas in-
+ternacionales ISO/IEC 25000, que reemplaz¾ y unific¾ a las antiguas normas ISO/IEC 9126 e
+ISO/IEC 14598. SQuaRE organiza el ciclo completo de gesti¾n de la calidad del software en
+cinco divisiones, tal como se resume en la Tabla 1.
+Table 1: Divisiones de la familia ISO/IEC 25000 (SQuaRE)
+Divisi¾n
+Rango
+Prop¾sito
+Gesti¾n de calidad
+2500n
+GuÝa de uso de toda la familia SQuaRE.
+Modelo de calidad
+2501n
+Define quÚ caracterÝsticas debe tener un producto
+(ISO/IEC 25010) y su calidad en uso.
+Medici¾n de calidad
+2502n
+Define c¾mo medir cada caracterÝstica: aquÝ reside
+ISO/IEC 25022 (Calidad en Uso), junto con 25023
+(calidad de producto) y 25024 (calidad de datos).
+Requerimientos de calidad
+2503n
+GuÝa para especificar requerimientos de calidad.
+Evaluaci¾n de calidad
+2504n
+GuÝa para el proceso de evaluaci¾n formal de calidad.
+2.2
+Relaci¾n entre ISO/IEC 25010 y 25022
+ISO/IEC 25010 define el modelo de calidad en uso con sus cinco caracterÝsticas (Efectividad,
+Eficiencia, Satisfacci¾n, Libertad de Riesgo y Cobertura de Contexto). ISO/IEC 25022 toma
+exactamente esas caracterÝsticas y les asocia mÚtricas concretas, f¾rmulas y escalas de medici¾n.
+Es decir: 25010 dice quÚ medir; 25022 dice c¾mo medirlo.
+2
+
+--- PAGE 4 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+La distinci¾n es clave para el resto del taller: mientras 25010 provee el vocabulario de calidad
+(las caracterÝsticas), 25022 provee el instrumento de medici¾n (las f¾rmulas X = A/B ya
+estudiadas en el Escenario 2).
+3
+Investigaci¾n Dirigida: Niveles de Calidad de Software
+De acuerdo con el modelo SQuaRE, la evaluaci¾n del software puede abordarse desde tres niveles
+distintos, que son interdependientes.
+3.1
+Calidad Interna
+Se refiere a las caracterÝsticas del software evaluadas desde una perspectiva estßtica, es decir,
+analizando el c¾digo fuente, la arquitectura y el dise±o sin necesidad de ejecutar el sistema. En
+este nivel, un ingeniero de calidad revisa mÚtricas como la complejidad ciclomßtica, la cohesi¾n,
+el acoplamiento y el cumplimiento de estßndares de codificaci¾n. Corresponde al modelo definido
+en la norma ISO/IEC 25010.
+3.2
+Calidad Externa
+Se eval·a observando el comportamiento del sistema cuando este se ejecuta, pero en un entorno
+de pruebas controlado y simulado por el equipo de TI. Permite medir caracterÝsticas como el
+rendimiento, la confiabilidad y la seguridad antes de que el software sea entregado al usuario
+final. TambiÚn forma parte de la norma ISO/IEC 25010.
+3.3
+Calidad en Uso
+Es el nivel mßs cercano a la realidad operativa del negocio.
+Se mide cuando el producto es
+utilizado por usuarios finales reales (mÚdicos, pacientes, personal administrativo) en su contexto
+real de trabajo. Eval·a si los usuarios pueden alcanzar sus objetivos con efectividad, eficiencia,
+satisfacci¾n y libertad de riesgo, basßndose en la norma ISO/IEC 25022.
+Idea central: la calidad interna es necesaria pero no suficiente. Un sistema puede tener
+c¾digo limpio (calidad interna) y superar pruebas de carga (calidad externa) y, aun asÝ, frus-
+trar a los mÚdicos de MediSalud si el registro de una nota clÝnica tarda mßs de 8 segundos en
+horas pico. Esa brecha es precisamente lo que ISO/IEC 25022 permite detectar y cuantificar.
+4
+Aplicaci¾n al Caso MediSalud HIS
+La Tabla 2 presenta ejemplos concretos que ilustran cada nivel de calidad aplicado al sistema
+MediSalud HIS, tal como fueron consensuados por el equipo en la actividad prßctica del escenario.
+3
+
+--- PAGE 5 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+Table 2: Los tres niveles de calidad aplicados a MediSalud HIS
+Nivel de Calidad
+Ejemplo aplicado a MediSalud HIS
+Calidad interna
+Medici¾n de la complejidad ciclomßtica y deuda tÚcnica del
+microservicio de facturaci¾n (desarrollado en Spring Boot) utilizando
+la herramienta de anßlisis estßtico SonarQube.
+Calidad externa
+Ejecuci¾n de pruebas de estrÚs utilizando JMeter para simular 500
+pacientes concurrentes intentando agendar citas simultßneamente en el
+portal web.
+Calidad en uso
+Medici¾n del tiempo real (en segundos) que demora un mÚdico de
+consulta externa en la sede Quito en registrar una nota de evoluci¾n
+clÝnica completa, sin errores, durante las horas pico de atenci¾n.
+5
+Mapa Conceptual de la Familia SQuaRE
+El siguiente diagrama conceptual detalla la relaci¾n estructural entre las normativas de la familia
+ISO/IEC 25000 (SQuaRE) y c¾mo los distintos niveles de calidad se apoyan entre sÝ: una buena
+calidad interna es la base para lograr una s¾lida calidad externa, la cual a su vez es prerrequisito
+para asegurar una excelente calidad en uso.
+ISO/IEC 25000
+Familia SQuaRE
+ISO/IEC 25040
+Evaluaci¾n de Calidad
+ISO/IEC 25010
+Modelo de Calidad
+Calidad Interna
+Ej: Anßlisis de c¾digo
+con SonarQube
+Calidad Externa
+Ej: Pruebas de estrÚs
+con JMeter
+ISO/IEC 25022
+Medici¾n Calidad en Uso
+Calidad en Uso
+Ej: Tiempo de registro
+de un mÚdico en HCE
+Influye en
+Figure 1: Relaci¾n entre normas ISO/IEC 25000, 25010, 25022 y 25040.
+5.1
+Interpretaci¾n del Mapa
+ò ISO/IEC 25000: Sirve como guÝa y marco general de toda la familia SQuaRE.
+ò ISO/IEC 25010 (Modelo de Calidad): Define quÚ caracterÝsticas deben medirse en
+el software (Calidad Interna y Externa).
+ò ISO/IEC 25022 (Medici¾n de Calidad en Uso): Define c¾mo medir la calidad
+desde la perspectiva final del usuario interactuando con el sistema.
+4
+
+--- PAGE 6 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+ò ISO/IEC 25040 (Evaluaci¾n): Define el proceso metodol¾gico para llevar a cabo la
+evaluaci¾n de la calidad del software.
+6
+Evidencia EmpÝrica: Anßlisis del Dataset de Incidentes 2025
+Para reforzar la comprensi¾n conceptual del Escenario 3, el equipo proces¾ el conjunto de datos
+incidentes_2025_iso_25022.csv, correspondiente a los incidentes reportados durante el a±o
+2025 en los distintos m¾dulos de MediSalud HIS. Este conjunto contiene 3 000 registros, cada
+uno con fecha, m¾dulo afectado, descripci¾n del problema, rol del usuario que report¾ el incidente
+y sede.
+El objetivo de este anßlisis no es clasificar los incidentes seg·n las cinco caracterÝsticas de
+ISO/IEC 25022 (tarea ya realizada en el Escenario 2), sino evidenciar, con datos reales
+de producci¾n, por quÚ el nivel de Calidad en Uso es el que realmente refleja la
+experiencia del usuario û un argumento central de este Escenario 3.
+6.1
+Distribuci¾n de incidentes por m¾dulo
+Table 3: Incidentes reportados por m¾dulo del sistema (2025, n=3 000)
+M¾dulo
+Incidentes
+% del total
+Historia ClÝnica Electr¾nica (HCE)
+769
+25.6%
+Portal de Citas
+545
+18.2%
+Facturaci¾n
+425
+14.2%
+Telemedicina
+320
+10.7%
+App M¾vil
+278
+9.3%
+Farmacia
+258
+8.6%
+Laboratorio
+166
+5.5%
+ImagenologÝa
+151
+5.0%
+Reportes Gerenciales
+88
+2.9%
+Figure 2: Distribuci¾n de incidentes reportados por m¾dulo, MediSalud HIS (2025).
+5
+
+--- PAGE 7 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+El m¾dulo de Historia ClÝnica Electr¾nica (HCE) concentra por sÝ solo mßs de una cuarta
+parte de todos los incidentes reportados en el a±o. Esto es relevante para el Escenario 3 porque el
+HCE es, precisamente, el m¾dulo sobre el cual se defini¾ el ejemplo de calidad en uso en la Tabla 2
+(tiempo de registro de una nota de evoluci¾n clÝnica). Un volumen tan alto de incidentes reales
+en producci¾n confirma que las pruebas de calidad externa (JMeter, entornos controlados) no
+bastan para anticipar los problemas que efectivamente sufren los usuarios finales en su contexto
+real de trabajo.
+6.2
+Distribuci¾n de incidentes por sede
+Figure 3: Incidentes reportados por sede, MediSalud HIS (2025).
+La sede de Quito concentra el mayor n·mero de incidentes (1 035), seguida de Guayaquil (791),
+Cuenca (464), Ambato (386) y Manta (324). Esta distribuci¾n es coherente con el volumen de
+pacientes atendidos por sede, pero tambiÚn sugiere una oportunidad de anßlisis para la carac-
+terÝstica de Cobertura de Contexto de ISO/IEC 25022: " el mismo flujo funciona igual de
+bien en el hospital de Quito que en el centro ambulatorio de Manta?" seg·n se plante¾ en el
+Escenario 2.
+6.3
+Contraste cuantitativo con el requerimiento RNF-01
+El caso de estudio establece en el requerimiento RNF-01 que ôel registro de una nota de evoluci¾n
+clÝnica no debe tardar mßs de 8 segundos en el 90 % de los casosö. El dataset contiene 63 incidentes
+cuya descripci¾n reporta explÝcitamente el tiempo que tard¾ en guardarse una nota de evoluci¾n
+(ôNota de evolucion tarda Xs en guardarseö). Al extraer y promediar esos valores se obtiene
+evidencia contundente:
+6
+
+--- PAGE 8 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+Table 4: Contraste entre RNF-01 y los incidentes registrados de HCE
+Indicador
+Valor
+Incidentes de tipo ônota de evoluci¾n tarda Xsö
+63
+Tiempo promedio reportado
+22.1 s
+Tiempo mßximo reportado
+35.0 s
+Umbral definido en RNF-01
+8.0 s
+Incidentes que incumplen RNF-01 (%)
+100 %
+Lectura para el Escenario 3: los 63 incidentes analizados incumplen el requerimiento
+RNF-01 en el 100 % de los casos, con un tiempo promedio casi tres veces superior al umbral
+aceptable. Este hallazgo confirma empÝricamente el argumento central de la Secci¾n 3: el
+ßrea de TI de MediSalud puede reportar ôel sistema funciona correctamenteö basßndose en
+la disponibilidad de los servidores (calidad externa/uptime), mientras que la evidencia de
+calidad en uso (ISO/IEC 25022) demuestra lo contrario desde la perspectiva del mÚdico
+que efectivamente utiliza el sistema.
+6.4
+Descripciones mßs recurrentes en el m¾dulo HCE
+Table 5: Incidentes mßs frecuentes del m¾dulo HCE (top 6, sobre 769 registros)
+Descripci¾n del incidente
+Frecuencia
+PÚrdida de la nota de evoluci¾n tras un cierre inesperado de sesi¾n
+64
+Receta electr¾nica se genera con la dosis incorrecta tras guardar
+59
+Orden mÚdica no se sincroniza con el m¾dulo de farmacia
+56
+Alerta de interacci¾n medicamentosa no se despliega correctamente
+53
+Duplicado de historia clÝnica al registrar un paciente ya existente
+53
+Historial de alergias no carga al abrir la ficha del paciente
+52
+Ejemplo empresarial
+ObsÚrvese que ôAlerta de interacci¾n medicamentosa no se despliega correctamenteö es, seg·n
+el modelo, un incidente de Libertad de Riesgo (riesgo clÝnico para el paciente) y no de
+Efectividad, tal como se discuti¾ para el incidente anßlogo 1005 en el Escenario 2.
+Su
+recurrencia (53 casos en el a±o) refuerza la necesidad de priorizar esta caracterÝstica en el
+programa de medici¾n continua que se dise±arß en el Escenario 12.
+7
+Preguntas de Discusi¾n
+1. "Puede un sistema tener excelente calidad interna (c¾digo limpio) y mala cal-
+idad en uso? Explique con un ejemplo.
+SÝ.
+El microservicio de facturaci¾n de MediSalud puede exhibir baja complejidad ci-
+clomßtica y alta cobertura de pruebas unitarias (excelente calidad interna) y, sin em-
+bargo, generar facturas duplicadas al reintentar el pago en producci¾n (425 incidentes de
+facturaci¾n registrados en 2025), un problema de calidad en uso que ninguna mÚtrica de
+c¾digo limpio puede detectar por sÝ sola.
+2. "Por quÚ SonarQube (calidad interna) no es suficiente para que MediSalud
+resuelva su problemßtica de lentitud percibida por los mÚdicos?
+7
+
+--- PAGE 9 ---
+Aseguramiento de la Calidad del Software û NRC 30733
+Grupo 7 û Calidad en Uso
+Porque SonarQube analiza el c¾digo fuente de forma estßtica y no observa al sistema
+en ejecuci¾n bajo condiciones reales de carga concurrente, red hospitalaria distribuida en
+cinco ciudades, o comportamiento real de los usuarios en horas pico. La lentitud percibida
+(evidenciada en los 63 incidentes con tiempos promedio de 22.1 s, muy por encima del
+umbral de 8 s) solo es observable mediante instrumentos de calidad en uso como ISO/IEC
+25022, que miden la experiencia real del mÚdico en producci¾n.
+3. "QuÚ relaci¾n existe entre la Cobertura de Contexto y la distribuci¾n de in-
+cidentes por sede observada en el dataset?
+La Cobertura de Contexto eval·a si el sistema mantiene su efectividad, eficiencia, satis-
+facci¾n y libertad de riesgo en contextos de uso distintos a los previstos originalmente.
+La concentraci¾n de incidentes en Quito y Guayaquil (61 % del total combinado) frente
+a sedes mßs peque±as como Manta (10.8 %) podrÝa deberse tanto a un mayor volumen
+de pacientes como a diferencias reales de infraestructura o conectividad entre sedes, una
+hip¾tesis que deberÝa verificarse normalizando los incidentes por el n·mero de usuarios
+activos de cada sede.
+8
+Conclusiones
+Resultado obtenido
+El desarrollo de este Escenario 3, ampliado con evidencia cuantitativa proveniente de datos
+reales de incidentes, permite concluir lo siguiente:
+ò El modelo SQuaRE articula de forma coherente cinco divisiones normativas, dentro
+de las cuales ISO/IEC 25022 ocupa un lugar especÝfico: la medici¾n de la calidad
+en uso.
+ò Los tres niveles de calidad (interna, externa, en uso) son interdependientes pero
+no sustituibles entre sÝ: una buena calidad interna no garantiza una buena calidad
+externa, y ambas no garantizan una buena calidad en uso.
+ò El anßlisis del dataset de 3 000 incidentes de MediSalud HIS confirma empÝricamente
+que el nivel de calidad en uso es el ·nico que expone brechas reales de experiencia
+del usuario (100 % de incumplimiento del RNF-01 en los casos analizados), brechas
+que la calidad interna y externa, evaluadas de forma aislada, no habrÝan detectado.
+ò Este hallazgo consolida el argumento central del taller: las decisiones de TI en MediS-
+alud deben migrar de una cultura basada en percepci¾n (ôel sistema funciona porque
+los servidores estßn arribaö) hacia una cultura basada en evidencia medible mediante
+ISO/IEC 25022, tal como se desarrollarß en los escenarios subsiguientes del taller.
+8
+

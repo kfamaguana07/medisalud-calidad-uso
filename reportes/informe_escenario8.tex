@@ -1,42 +1,216 @@
-﻿\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
 \geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
 
-\title{\textbf{Escenario 8: Automatizaci\'on de la Medici\'on}}
-\author{
-\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
-\textbf{Docente:} Ing. Diego Gamboa \\
-\textbf{Grupo 7 --- Calidad en Uso} \\
-\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Aseguramiento de la Calidad del Software -- NRC 30733}
+\lhead{Grupo 7 -- Calidad en Uso}
+\cfoot{\thepage}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    language=Python,
+    keywordstyle=\color{blue!80!black},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red!60!black},
 }
-\date{\today}
 
 \begin{document}
 
-\maketitle
+% ============================================================
+% CARATULA
+% ============================================================
+\begin{titlepage}
+\centering
+{\Large \textbf{Departamento de Ciencias de la Computaci\'on}}\\[0.3cm]
+{\large Ingenier\'ia de Software}\\[1.5cm]
 
-\section{Descripci\'on General}
-Este escenario cubre la construcci\'on de un pipeline en Python que calcula autom\'aticamente las cinco m\'etricas ISO/IEC 25022 del cat\'alogo de MediSalud, partiendo de los datos validados en el Escenario 7 y generando un archivo de indicadores en formato JSON, reutilizable para tableros de control (dashboards). Adem\'as, se integr\'o este pipeline en un flujo de Integraci\'on Continua mediante GitHub Actions.
+{\LARGE \textbf{Escenario 8: Automatizaci\'on de la\\Medici\'on de Calidad en Uso}}\\[0.5cm]
+{\large Medici\'on de la Calidad en Uso mediante ISO/IEC 25022}\\[0.3cm]
+{\large Caso de estudio: Red Hospitalaria MediSalud Ecuador}\\[2cm]
 
+\begin{tabular}{ll}
+\textbf{Asignatura:} & Aseguramiento de la Calidad del Software \\
+\textbf{NRC:}        & 30733 \\
+\textbf{Docente:}    & Ing. Diego Gamboa \\
+\textbf{Repositorio:} & \url{https://github.com/kfamaguana07/medisalud-calidad-uso.git} \\
+\end{tabular}\\[1.5cm]
+
+\textbf{Integrantes}\\[0.3cm]
+Kevin Amagua\~na \\
+Jairo Bonilla \\
+Darwin Panchez \\
+Eduardo Mortensen \\[2cm]
+
+{\large Universidad de las Fuerzas Armadas ESPE}\\[0.3cm]
+{\large Julio 2026}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introducci\'on}
+El presente informe documenta el \textbf{Escenario 8} del taller, cuyo prop\'osito es construir un \textbf{pipeline automatizado en Python} que calcule las cinco m\'etricas ISO/IEC 25022 del cat\'alogo de MediSalud (Escenario 6), partiendo de los datos validados en el Escenario 7, y que genere un archivo de indicadores en formato JSON reutilizable para tableros de control. Adem\'as, se integr\'o este pipeline en un flujo de \textbf{Integraci\'on Continua} mediante GitHub Actions.
+
+\subsection{Objetivo del escenario}
+Transformar las f\'ormulas normativas abstractas de ISO/IEC 25022 en \textbf{c\'odigo ejecutable, reproducible y auditable}, de modo que el c\'alculo de m\'etricas pueda ejecutarse de forma peri\'odica y autom\'atica, eliminando la dependencia de c\'alculos manuales propensos a errores.
+
+% ============================================================
 \section{Arquitectura del Pipeline de Medici\'on}
-El proceso automatizado sigue las siguientes etapas:
+
+El pipeline sigue una arquitectura ETL (\textit{Extract--Transform--Load}) de tres etapas, implementada \'integramente en Python con la biblioteca Pandas:
+
 \begin{enumerate}
-    \item \textbf{Extracci\'on y Carga:} Se importan los datos crudos (\texttt{data/logs\_hce.csv}, \texttt{encuesta\_satisfaccion.csv} e \texttt{incidentes\_2025.csv}) mediante Pandas en el m\'odulo \texttt{metricas\_iso25022.py}.
-    \item \textbf{C\'alculo de M\'etricas:} Funciones independientes procesan los DataFrames para calcular Efectividad, Eficiencia, Satisfacci\'on, Libertad de Riesgo y Cobertura de Contexto, comparando los valores resultantes contra los umbrales definidos en el caso de estudio (p. ej., RNF-01).
-    \item \textbf{Exportaci\'on de Resultados:} El script \texttt{exportar\_reporte.py} empaqueta el diccionario final de m\'etricas y lo guarda en \texttt{dashboards/indicadores.json}.
+    \item \textbf{Extracci\'on (Extract):} El m\'odulo \texttt{metricas\_iso25022.py} importa los tres archivos CSV validados (\texttt{logs\_hce.csv}, \texttt{encuesta\_satisfaccion.csv}, \texttt{incidentes\_2025\_iso\_25022.csv}) mediante \texttt{pd.read\_csv()}.
+
+    \item \textbf{Transformaci\'on (Transform):} Funciones independientes procesan los DataFrames para calcular cada m\'etrica:
+    \begin{itemize}
+        \item \texttt{metrica\_efectividad()}: $X = A/B$ (notas completadas / intentadas)
+        \item \texttt{metrica\_eficiencia()}: $\bar{t} = \sum t_i / n$
+        \item \texttt{metrica\_satisfaccion()}: $X = \sum s_i / (N \times 5)$
+        \item \texttt{metrica\_libertad\_riesgo()}: $X = F_e / F_t$
+        \item \texttt{metrica\_eficiencia\_por\_sede()}: desagregaci\'on para Cobertura de Contexto
+    \end{itemize}
+    Cada funci\'on retorna un diccionario con: \texttt{valor}, \texttt{unidad}, \texttt{umbral} y \texttt{cumple} (booleano).
+
+    \item \textbf{Carga (Load):} El script \texttt{exportar\_reporte.py} empaqueta todos los resultados en un archivo \texttt{dashboards/indicadores.json}, consumible por herramientas de visualizaci\'on (Grafana, Power BI, etc.).
 \end{enumerate}
 
-\section{Integraci\'on Continua (CI)}
-Para convertir el programa de medici\'on en un proceso continuo y reproducible, se configur\'o un \textit{workflow} en GitHub Actions (\texttt{.github/workflows/medicion\_calidad.yml}) que se ejecuta autom\'aticamente mediante \texttt{cron} o \texttt{workflow\_dispatch}.
-El \textit{pipeline} instala las dependencias de Python (pandas, numpy), ejecuta los scripts de c\'alculo, y guarda el reporte \texttt{indicadores.json} como un artefacto descargable en el repositorio.
+% ============================================================
+\section{Resultados de la Ejecuci\'on del Pipeline}
 
+La Tabla~1 presenta los resultados obtenidos tras ejecutar el pipeline sobre los datos del Escenario 7.
+
+\begin{table}[H]
+\centering
+\caption{Resultados de las m\'etricas ISO/IEC 25022 calculadas autom\'aticamente}
+\begin{tabularx}{\textwidth}{l c c c l}
+\toprule
+\textbf{M\'etrica} & \textbf{Valor} & \textbf{Umbral} & \textbf{Estado} & \textbf{Interpretaci\'on} \\
+\midrule
+M-01 Efectividad & 0.9651 & $\ge 0.95$ & \textcolor{green!60!black}{\textbf{CUMPLE}} & El 96.5\% de las notas se completan exitosamente. \\
+M-02 Eficiencia & 7.43s & $\le 8.0$s & \textcolor{green!60!black}{\textbf{CUMPLE}} & Tiempo promedio global dentro del umbral RNF-01. \\
+M-03 Satisfacci\'on & 0.7107 & $\ge 0.80$ & \textcolor{red}{\textbf{NO CUMPLE}} & CSAT promedio de 3.55/5, insatisfacci\'on de m\'edicos. \\
+M-04 Libertad Riesgo & 0.0500 & $\le 0.01$ & \textcolor{red}{\textbf{NO CUMPLE}} & 5\% de errores de facturaci\'on (5$\times$ el umbral). \\
+M-05 Cob. Contexto & 0.9805 & $\ge 0.90$ & \textcolor{green!60!black}{\textbf{CUMPLE}} & Variaci\'on $<$2\% entre sedes. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=Hallazgo cr\'itico]
+Dos de las cinco m\'etricas \textbf{no cumplen} sus umbrales. La Satisfacci\'on (M-03) refleja la frustraci\'on de los m\'edicos (CSAT promedio de 2.22/5) documentada desde el Escenario 3. La Libertad de Riesgo (M-04) evidencia que la tasa de errores de facturaci\'on (5\%) quintuplica el umbral RNF-03 ($\le$1\%), confirmando cuantitativamente el problema de doble cobro reportado en los 425 incidentes de facturaci\'on del dataset de 2025.
+\end{tcolorbox}
+
+% ============================================================
+\section{Evidencia Emp\'irica: Dashboard de M\'etricas}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{img/dashboard_metricas.png}
+\caption{Dashboard de m\'etricas ISO/IEC 25022 generado autom\'aticamente. Las barras verdes indican cumplimiento del umbral y las rojas incumplimiento. Cada barra incluye el valor medido, la unidad y el estado.}
+\end{figure}
+
+\subsection{Eficiencia desagregada por sede (Cobertura de Contexto)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{img/eficiencia_por_sede.png}
+\caption{Tiempo promedio de registro HCE por sede. La l\'inea roja indica el umbral RNF-01 (8s). Todas las sedes presentan tiempos por debajo del umbral, con una variaci\'on m\'axima de 0.15 segundos entre la sede m\'as r\'apida (Guayaquil, 7.37s) y la m\'as lenta (Manta, 7.52s), lo que confirma una alta Cobertura de Contexto (0.98).}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Eficiencia promedio de registro HCE desagregada por sede}
+\begin{tabular}{l c c}
+\toprule
+\textbf{Sede} & \textbf{Tiempo promedio (s)} & \textbf{Cumple RNF-01} \\
+\midrule
+Guayaquil & 7.37 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Cuenca    & 7.40 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Quito     & 7.43 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Ambato    & 7.48 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Manta     & 7.52 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Satisfacci\'on desagregada por rol}
+
+\begin{table}[H]
+\centering
+\caption{CSAT promedio por rol de usuario (escala 1--5)}
+\begin{tabular}{l c c}
+\toprule
+\textbf{Rol} & \textbf{CSAT promedio} & \textbf{Cumple ($\ge 4.0$)} \\
+\midrule
+M\'edico & 2.22 & \textcolor{red}{\textbf{No}} \\
+Enfermer\'ia & 4.06 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Paciente & 4.14 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+Personal de admisi\'on & 4.17 & \textcolor{green!60!black}{\textbf{S\'i}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{tcolorbox}[colback=blue!5, colframe=blue!50!black, title=Lectura para la gerencia]
+El CSAT global (3.55/5) enmascara una brecha cr\'itica: los m\'edicos (2.22/5) est\'an significativamente m\'as insatisfechos que los dem\'as roles. Este es el tipo de hallazgo que solo emerge cuando el indicador se \textbf{desagrega por contexto} (en este caso, por rol de usuario), reforzando la importancia de la caracter\'istica de Cobertura de Contexto de ISO/IEC 25022.
+\end{tcolorbox}
+
+% ============================================================
+\section{Integraci\'on Continua (CI)}
+
+Para convertir el programa de medici\'on en un proceso continuo y reproducible, se configur\'o un \textit{workflow} en GitHub Actions (\texttt{.github/workflows/medicion\_calidad.yml}):
+
+\begin{itemize}
+    \item \textbf{Trigger:} Ejecuci\'on programada cada lunes a las 06:00 UTC v\'ia \texttt{cron}, o manual v\'ia \texttt{workflow\_dispatch}.
+    \item \textbf{Entorno:} Ubuntu con Python 3.11 y dependencias (pandas, numpy).
+    \item \textbf{Pasos:} Checkout del repositorio $\rightarrow$ Instalaci\'on de dependencias $\rightarrow$ Ejecuci\'on de \texttt{metricas\_iso25022.py} $\rightarrow$ Exportaci\'on a JSON $\rightarrow$ Subida del artefacto \texttt{indicadores.json}.
+\end{itemize}
+
+% ============================================================
+\section{Preguntas de Discusi\'on}
+
+\begin{enumerate}
+    \item \textbf{?`Por qu\'e es importante que el c\'alculo de m\'etricas sea autom\'atico y no manual?}
+
+    Porque un programa de medici\'on que depende de c\'alculos manuales es: (a) \textbf{propenso a errores} (transcripci\'on, f\'ormulas mal aplicadas), (b) \textbf{no escalable} (con 3\,150 registros es manejable, pero con millones de registros de producci\'on es inviable), y (c) \textbf{no reproducible} (distintas personas pueden aplicar criterios distintos de limpieza o agregaci\'on). La automatizaci\'on garantiza que el mismo c\'odigo, con los mismos datos, produce siempre el mismo resultado, lo cual es un requisito fundamental de la evaluaci\'on de calidad seg\'un ISO/IEC 25040.
+
+    \item \textbf{?`Qu\'e ventaja aporta GitHub Actions frente a ejecutar el script manualmente cada semana?}
+
+    GitHub Actions garantiza que la medici\'on se ejecuta de forma \textbf{puntual e independiente} del factor humano. Si un ingeniero olvida ejecutar el script o est\'a de vacaciones, la medici\'on igual se realiza. Adem\'as, el historial de ejecuciones queda registrado como artefactos del repositorio, proporcionando \textbf{trazabilidad auditora} completa.
+
+    \item \textbf{?`C\'omo interpret\'o la gerencia el hecho de que la Eficiencia global (7.43s) cumple el umbral, pero la Satisfacci\'on (0.71) no?}
+
+    Este resultado ilustra una situaci\'on en la que el sistema es t\'ecnicamente eficiente \textbf{en promedio}, pero los usuarios m\'as cr\'iticos (m\'edicos) perciben una mala experiencia. El promedio global enmascara la degradaci\'on en horas pico, que es precisamente cuando los m\'edicos m\'as usan el sistema. La soluci\'on no es solo optimizar el tiempo promedio, sino garantizar que el \textbf{percentil 90} del tiempo de registro tambi\'en cumpla el umbral, como exige literalmente el RNF-01.
+\end{enumerate}
+
+% ============================================================
 \section{Conclusiones}
-Al finalizar el escenario 8, se ha automatizado por completo el c\'alculo de las m\'etricas de Calidad en Uso. Transformamos as\'i las f\'ormulas normativas abstractas de ISO/IEC 25022 en c\'odigo ejecutable, reproducible y auditable. Este hito es fundamental para abandonar la gesti\'on basada en "percepciones" y transicionar hacia una gobernanza de calidad basada en datos observables.
+
+\begin{tcolorbox}[colback=green!5, colframe=green!50!black, title=Resultado obtenido]
+\begin{itemize}
+    \item Se ha automatizado por completo el c\'alculo de las \textbf{cinco m\'etricas} de calidad en uso, transformando las f\'ormulas normativas de ISO/IEC 25022 en c\'odigo Python ejecutable y auditable.
+    \item El pipeline revel\'o que \textbf{2 de 5 m\'etricas no cumplen} sus umbrales (Satisfacci\'on y Libertad de Riesgo), proporcionando evidencia cuantitativa para priorizar acciones de mejora.
+    \item La integraci\'on con \textbf{GitHub Actions} convierte el programa de medici\'on en un proceso continuo y reproducible, sentando las bases para la construcci\'on de indicadores y dashboards del Escenario 9.
+    \item Este hito es fundamental para que MediSalud abandone la gesti\'on basada en ``percepciones'' y transite hacia una \textbf{gobernanza de calidad basada en datos observables}.
+\end{itemize}
+\end{tcolorbox}
 
 \end{document}

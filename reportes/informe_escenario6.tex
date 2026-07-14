@@ -1,98 +1,262 @@
-﻿\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{amsmath}
 \geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
 
-\title{\textbf{Escenario 6: Dise\~no de M\'etricas}}
-\author{
-\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
-\textbf{Docente:} Ing. Diego Gamboa \\
-\textbf{Grupo 7 --- Calidad en Uso} \\
-\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
-}
-\date{\today}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Aseguramiento de la Calidad del Software -- NRC 30733}
+\lhead{Grupo 7 -- Calidad en Uso}
+\cfoot{\thepage}
 
 \begin{document}
 
-\maketitle
+% ============================================================
+% CARATULA
+% ============================================================
+\begin{titlepage}
+\centering
+{\Large \textbf{Departamento de Ciencias de la Computaci\'on}}\\[0.3cm]
+{\large Ingenier\'ia de Software}\\[1.5cm]
 
-\section{Descripci\'on General}
-Este escenario dise\~na formalmente, siguiendo la estructura de ISO/IEC 25022, las m\'etricas de Calidad en Uso para las tareas priorizadas de MediSalud, estableciendo: f\'ormula, variables, unidad, rango deseado e interpretaci\'on.
+{\LARGE \textbf{Escenario 6: Dise\~no Formal de M\'etricas\\ISO/IEC 25022}}\\[0.5cm]
+{\large Medici\'on de la Calidad en Uso mediante ISO/IEC 25022}\\[0.3cm]
+{\large Caso de estudio: Red Hospitalaria MediSalud Ecuador}\\[2cm]
 
-\section{Cat\'alogo de M\'etricas ISO/IEC 25022}
-A continuaci\'on se presentan las fichas est\'andar para 5 m\'etricas (una por caracter\'istica).
+\begin{tabular}{ll}
+\textbf{Asignatura:} & Aseguramiento de la Calidad del Software \\
+\textbf{NRC:}        & 30733 \\
+\textbf{Docente:}    & Ing. Diego Gamboa \\
+\textbf{Repositorio:} & \url{https://github.com/kfamaguana07/medisalud-calidad-uso.git} \\
+\end{tabular}\\[1.5cm]
 
-\subsection{M\'etrica 1: Completitud de registro de HCE}
-\begin{itemize}
-    \item \textbf{Caracter\'istica:} Efectividad
-    \item \textbf{Prop\'osito:} Medir el grado en que los m\'edicos logran registrar la nota cl\'inica sin fallos.
-    \item \textbf{F\'ormula:} $X = \frac{\text{Notas completadas correctamente}}{\text{Notas intentadas}}$
-    \item \textbf{Variables:} $A$ = Notas completadas, $B$ = Notas intentadas
-    \item \textbf{Unidad:} Proporci\'on (0-1)
-    \item \textbf{Rango deseado:} $X \ge 0.95$
-    \item \textbf{Fuente de datos:} Logs de aplicaci\'on HCE
-    \item \textbf{Frecuencia de medici\'on:} Semanal
-    \item \textbf{Responsable:} Gerencia de Calidad
-\end{itemize}
+\textbf{Integrantes}\\[0.3cm]
+Kevin Amagua\~na \\
+Jairo Bonilla \\
+Darwin Panchez \\
+Eduardo Mortensen \\[2cm]
 
-\subsection{M\'etrica 2: Tiempo promedio de registro de HCE}
-\begin{itemize}
-    \item \textbf{Caracter\'istica:} Eficiencia
-    \item \textbf{Prop\'osito:} Evaluar los recursos (tiempo) utilizados por los m\'edicos para completar el registro.
-    \item \textbf{F\'ormula:} $X = \frac{\sum t_i}{n}$
-    \item \textbf{Variables:} $t_i$ = tiempo invertido por la nota $i$, $n$ = total de notas
-    \item \textbf{Unidad:} Segundos
-    \item \textbf{Rango deseado:} $X \le 8.0$ segundos (seg\'un RNF-01)
-    \item \textbf{Fuente de datos:} Logs con marcas de tiempo (timestamps)
-    \item \textbf{Frecuencia de medici\'on:} Continua / Semanal
-    \item \textbf{Responsable:} TI / Equipo DevOps
-\end{itemize}
+{\large Universidad de las Fuerzas Armadas ESPE}\\[0.3cm]
+{\large Julio 2026}
+\end{titlepage}
 
-\subsection{M\'etrica 3: \'Indice de Satisfacci\'on (CSAT)}
-\begin{itemize}
-    \item \textbf{Caracter\'istica:} Satisfacci\'on
-    \item \textbf{Prop\'osito:} Conocer la percepci\'on de usabilidad del sistema por parte del personal de salud.
-    \item \textbf{F\'ormula:} $X = \frac{\sum \text{Puntajes CSAT}}{N \times 5}$
-    \item \textbf{Variables:} Puntajes CSAT (escala 1 a 5), $N$ = n\'umero de encuestados
-    \item \textbf{Unidad:} Proporci\'on (0-1)
-    \item \textbf{Rango deseado:} $X \ge 0.80$
-    \item \textbf{Fuente de datos:} Encuestas de satisfacci\'on
-    \item \textbf{Frecuencia de medici\'on:} Trimestral
-    \item \textbf{Responsable:} Gerencia de Calidad
-\end{itemize}
+\tableofcontents
+\newpage
 
-\subsection{M\'etrica 4: Tasa de errores de facturaci\'on}
-\begin{itemize}
-    \item \textbf{Caracter\'istica:} Libertad de Riesgo
-    \item \textbf{Prop\'osito:} Medir el riesgo financiero mitigado en el cobro a seguros.
-    \item \textbf{F\'ormula:} $X = \frac{\text{Facturas err\'oneas}}{\text{Facturas emitidas}}$
-    \item \textbf{Variables:} Facturas con error reportado, Total de transacciones
-    \item \textbf{Unidad:} Proporci\'on
-    \item \textbf{Rango deseado:} $X \le 0.01$ (seg\'un RNF-03)
-    \item \textbf{Fuente de datos:} Base de datos transaccional e incidentes
-    \item \textbf{Frecuencia de medici\'on:} Mensual
-    \item \textbf{Responsable:} Departamento de Facturaci\'on
-\end{itemize}
+% ============================================================
+\section{Introducci\'on}
+El presente informe desarrolla el \textbf{Escenario 6} del taller, cuyo prop\'osito es traducir las caracter\'isticas de calidad en uso priorizadas en el Escenario 5 en \textbf{m\'etricas formales, reproducibles y accionables}, siguiendo la estructura de ficha est\'andar definida por la norma ISO/IEC 25022.
 
-\subsection{M\'etrica 5: Consistencia de eficiencia entre sedes}
-\begin{itemize}
-    \item \textbf{Caracter\'istica:} Cobertura de Contexto
-    \item \textbf{Prop\'osito:} Verificar si el sistema rinde igual en todas las sedes (Quito, Guayaquil, etc.).
-    \item \textbf{F\'ormula:} $X = 1 - \frac{|\text{Tiempo sede A} - \text{Tiempo sede B}|}{\text{Tiempo sede A}}$
-    \item \textbf{Variables:} Tiempo promedio de tarea desagregado por sede
-    \item \textbf{Unidad:} Proporci\'on
-    \item \textbf{Rango deseado:} $X \ge 0.90$
-    \item \textbf{Fuente de datos:} Metadatos de sesi\'on (sede) y logs de tiempo
-    \item \textbf{Frecuencia de medici\'on:} Semanal
-    \item \textbf{Responsable:} Gerencia de Tecnolog\'ia (TI)
-\end{itemize}
+\subsection{Objetivo del escenario}
+Dise\~nar formalmente al menos cinco m\'etricas de calidad en uso (una por caracter\'istica del modelo ISO/IEC 25022), especificando: prop\'osito, f\'ormula, variables, unidad, rango deseado, fuente de datos, frecuencia de medici\'on y responsable, de modo que cada m\'etrica pueda ser implementada de forma autom\'atica en los escenarios subsiguientes.
 
+\subsection{Estructura de la ficha de m\'etrica}
+Cada m\'etrica se documenta siguiendo la estructura recomendada por ISO/IEC 25022, que incluye los campos mostrados en la Tabla~1.
+
+\begin{table}[H]
+\centering
+\caption{Estructura de una ficha de m\'etrica ISO/IEC 25022}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Descripci\'on} \\
+\midrule
+Identificador & C\'odigo \'unico de la m\'etrica \\
+Nombre & Nombre descriptivo \\
+Caracter\'istica & Caracter\'istica ISO 25022 que mide \\
+Prop\'osito & Qu\'e se quiere evaluar \\
+F\'ormula & Expresi\'on matem\'atica para el c\'alculo \\
+Variables & Definici\'on de cada variable de la f\'ormula \\
+Unidad & Unidad de medida del resultado \\
+Rango deseado & Valor objetivo o umbral de aceptaci\'on \\
+Fuente de datos & De d\'onde se obtienen los valores \\
+Frecuencia & Con qu\'e periodicidad se calcula \\
+Responsable & Rol o \'area encargada del c\'alculo e interpretaci\'on \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================
+\section{Cat\'alogo de M\'etricas ISO/IEC 25022 para MediSalud HIS}
+
+\subsection{M\'etrica 1: Completitud de registro de HCE (Efectividad)}
+
+\begin{table}[H]
+\centering
+\caption{Ficha de la m\'etrica M-01: Completitud de registro de HCE}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & M-01 \\
+\textbf{Nombre} & Completitud de registro de HCE \\
+\textbf{Caracter\'istica} & Efectividad \\
+\textbf{Prop\'osito} & Medir el grado en que los m\'edicos logran registrar la nota de evoluci\'on cl\'inica completa sin fallos ni p\'erdida de datos. \\
+\textbf{F\'ormula} & $X = \dfrac{A}{B}$ \\
+\textbf{Variables} & $A$ = N\'umero de notas de evoluci\'on completadas correctamente (estado = ``guardada'') \newline $B$ = N\'umero total de notas de evoluci\'on intentadas (estado $\in$ \{``guardada'', ``fallida'', ``timeout''\}) \\
+\textbf{Unidad} & Proporci\'on (0--1) \\
+\textbf{Rango deseado} & $X \ge 0.95$ (95\% de completitud) \\
+\textbf{Fuente de datos} & Logs de aplicaci\'on del m\'odulo HCE (\texttt{data/logs\_hce.csv}) \\
+\textbf{Frecuencia} & Semanal \\
+\textbf{Responsable} & Gerencia de Calidad / Equipo DevOps \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{M\'etrica 2: Tiempo promedio de registro de HCE (Eficiencia)}
+
+\begin{table}[H]
+\centering
+\caption{Ficha de la m\'etrica M-02: Tiempo promedio de registro de HCE}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & M-02 \\
+\textbf{Nombre} & Tiempo promedio de registro de HCE \\
+\textbf{Caracter\'istica} & Eficiencia \\
+\textbf{Prop\'osito} & Evaluar los recursos temporales utilizados por los m\'edicos para completar el registro de una nota de evoluci\'on cl\'inica. \\
+\textbf{F\'ormula} & $X = \dfrac{\sum_{i=1}^{n} t_i}{n}$ \\
+\textbf{Variables} & $t_i$ = Tiempo invertido (en segundos) en registrar la nota $i$, calculado como la diferencia entre el timestamp de ``inicio de edici\'on'' y el de ``guardado exitoso''. \newline $n$ = Total de notas registradas en el per\'iodo. \\
+\textbf{Unidad} & Segundos \\
+\textbf{Rango deseado} & $X \le 8.0$ segundos (seg\'un RNF-01 del caso de estudio) \\
+\textbf{Fuente de datos} & Logs con marcas de tiempo (\texttt{data/logs\_hce.csv}) \\
+\textbf{Frecuencia} & Continua / Consolidaci\'on semanal \\
+\textbf{Responsable} & TI / Equipo DevOps \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{tcolorbox}[colback=blue!5, colframe=blue!50!black, title=Nota sobre RNF-01]
+El requerimiento no funcional RNF-01 del caso MediSalud establece: ``El registro de una nota de evoluci\'on cl\'inica no debe tardar m\'as de 8 segundos en el 90\% de los casos.'' El an\'alisis del Escenario 3 demostr\'o que el 100\% de los 63 incidentes reportados incumpl\'ian este umbral, con un promedio de 22.1 segundos. Esta m\'etrica permite monitorear si las mejoras implementadas logran acercar el sistema al cumplimiento del RNF-01.
+\end{tcolorbox}
+
+\subsection{M\'etrica 3: \'Indice de Satisfacci\'on CSAT (Satisfacci\'on)}
+
+\begin{table}[H]
+\centering
+\caption{Ficha de la m\'etrica M-03: \'Indice de Satisfacci\'on CSAT}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & M-03 \\
+\textbf{Nombre} & \'Indice de Satisfacci\'on CSAT \\
+\textbf{Caracter\'istica} & Satisfacci\'on \\
+\textbf{Prop\'osito} & Conocer la percepci\'on subjetiva de usabilidad y utilidad del sistema por parte del personal de salud y los pacientes. \\
+\textbf{F\'ormula} & $X = \dfrac{\sum_{i=1}^{N} s_i}{N \times 5}$ \\
+\textbf{Variables} & $s_i$ = Puntaje CSAT del encuestado $i$ (escala Likert 1--5). \newline $N$ = N\'umero total de encuestados. \newline 5 = Puntaje m\'aximo posible. \\
+\textbf{Unidad} & Proporci\'on normalizada (0--1) \\
+\textbf{Rango deseado} & $X \ge 0.80$ (equivalente a un promedio $\ge 4.0$ sobre 5) \\
+\textbf{Fuente de datos} & Encuestas de satisfacci\'on (\texttt{data/encuesta\_satisfaccion.csv}) \\
+\textbf{Frecuencia} & Trimestral \\
+\textbf{Responsable} & Gerencia de Calidad \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{M\'etrica 4: Tasa de errores de facturaci\'on (Libertad de Riesgo)}
+
+\begin{table}[H]
+\centering
+\caption{Ficha de la m\'etrica M-04: Tasa de errores de facturaci\'on}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & M-04 \\
+\textbf{Nombre} & Tasa de errores de facturaci\'on \\
+\textbf{Caracter\'istica} & Libertad de Riesgo \\
+\textbf{Prop\'osito} & Medir el riesgo econ\'omico mitigado en el proceso de cobro a seguros m\'edicos, cuantificando la proporci\'on de facturas err\'oneas sobre el total de transacciones procesadas. \\
+\textbf{F\'ormula} & $X = \dfrac{F_e}{F_t}$ \\
+\textbf{Variables} & $F_e$ = N\'umero de facturas con error reportado (doble cobro, monto incorrecto, cobertura mal aplicada). \newline $F_t$ = Total de transacciones de facturaci\'on procesadas en el per\'iodo. \\
+\textbf{Unidad} & Proporci\'on (0--1) \\
+\textbf{Rango deseado} & $X \le 0.01$ (m\'aximo 1\% de errores, seg\'un RNF-03) \\
+\textbf{Fuente de datos} & Base de datos transaccional e incidentes (\texttt{data/incidentes\_2025\_iso\_25022.csv}) \\
+\textbf{Frecuencia} & Mensual \\
+\textbf{Responsable} & Departamento de Facturaci\'on / Gerencia Financiera \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{M\'etrica 5: Consistencia de eficiencia entre sedes (Cobertura de Contexto)}
+
+\begin{table}[H]
+\centering
+\caption{Ficha de la m\'etrica M-05: Consistencia de eficiencia entre sedes}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & M-05 \\
+\textbf{Nombre} & Consistencia de eficiencia entre sedes \\
+\textbf{Caracter\'istica} & Cobertura de Contexto \\
+\textbf{Prop\'osito} & Verificar si el sistema mantiene un nivel homog\'eneo de eficiencia (tiempo de tarea) en las cinco sedes de la red hospitalaria. \\
+\textbf{F\'ormula} & $X = 1 - \dfrac{|T_{\max} - T_{\min}|}{T_{\max}}$ \\
+\textbf{Variables} & $T_{\max}$ = Tiempo promedio de la sede con peor rendimiento. \newline $T_{\min}$ = Tiempo promedio de la sede con mejor rendimiento. \\
+\textbf{Unidad} & Proporci\'on (0--1) \\
+\textbf{Rango deseado} & $X \ge 0.90$ (variaci\'on m\'axima del 10\% entre sedes) \\
+\textbf{Fuente de datos} & Metadatos de sesi\'on (campo \texttt{sede}) y logs de tiempo (\texttt{data/logs\_hce.csv}) \\
+\textbf{Frecuencia} & Semanal \\
+\textbf{Responsable} & Gerencia de Tecnolog\'ia (TI) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================
+\section{Resumen del Cat\'alogo de M\'etricas}
+
+\begin{table}[H]
+\centering
+\caption{Resumen del cat\'alogo de m\'etricas ISO/IEC 25022 para MediSalud HIS}
+\begin{tabularx}{\textwidth}{c l l c c}
+\toprule
+\textbf{ID} & \textbf{Caracter\'istica} & \textbf{F\'ormula} & \textbf{Umbral} & \textbf{RNF} \\
+\midrule
+M-01 & Efectividad         & $A/B$                               & $\ge 0.95$ & -- \\
+M-02 & Eficiencia          & $\bar{t}$                           & $\le 8.0$s & RNF-01 \\
+M-03 & Satisfacci\'on       & $\sum s_i / (N \times 5)$           & $\ge 0.80$ & -- \\
+M-04 & Libertad de Riesgo  & $F_e / F_t$                         & $\le 0.01$ & RNF-03 \\
+M-05 & Cobertura Contexto  & $1 - |T_{\max}-T_{\min}|/T_{\max}$  & $\ge 0.90$ & -- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================
+\section{Preguntas de Discusi\'on}
+
+\begin{enumerate}
+    \item \textbf{?`Por qu\'e la m\'etrica de Satisfacci\'on utiliza una encuesta y no un indicador autom\'atico?}
+
+    Porque la satisfacci\'on es una percepci\'on subjetiva del usuario que no puede inferirse directamente de logs t\'ecnicos. Un sistema puede cumplir todos los umbrales de tiempo y completitud y, aun as\'i, frustrar al usuario por razones de dise\~no de interfaz, flujo de navegaci\'on o confianza percibida. La encuesta CSAT captura esta dimensi\'on psicol\'ogica que los instrumentos t\'ecnicos no pueden medir.
+
+    \item \textbf{?`Qu\'e limitaci\'on tiene la m\'etrica M-05 (Cobertura de Contexto)?}
+
+    La f\'ormula propuesta solo compara la sede con peor rendimiento contra la de mejor rendimiento, ignorando la varianza interna de cada sede. Una mejora futura ser\'ia utilizar el coeficiente de variaci\'on ($CV = \sigma/\mu$) entre las cinco sedes, lo que dar\'ia una medida m\'as robusta de homogeneidad. Sin embargo, para la primera iteraci\'on del programa, la f\'ormula actual es suficientemente informativa y f\'acil de interpretar por la gerencia.
+
+    \item \textbf{?`C\'omo se asegura la trazabilidad entre m\'etricas, fichas UTC y requerimientos no funcionales?}
+
+    Cada m\'etrica referencia expl\'icitamente: (a) la caracter\'istica ISO 25022 que mide, (b) la ficha UTC del Escenario 4 de la cual proviene la tarea, y (c) el RNF del caso de estudio que define el umbral (cuando aplica). Esta trazabilidad permite que cualquier resultado fuera de rango sea rastreado hasta su origen operativo y normativo, facilitando la toma de decisiones informadas.
+\end{enumerate}
+
+% ============================================================
 \section{Conclusiones}
-Se ha traducido conceptos normativos abstractos en m\'etricas formales, reproducibles y accionables, sentando las bases t\'ecnicas para la automatizaci\'on del programa de medici\'on en MediSalud HIS.
+
+\begin{tcolorbox}[colback=green!5, colframe=green!50!black, title=Resultado obtenido]
+\begin{itemize}
+    \item Se ha dise\~nado un \textbf{cat\'alogo formal de 5 m\'etricas} (una por caracter\'istica ISO/IEC 25022), cada una documentada con la estructura est\'andar de ficha de m\'etrica: prop\'osito, f\'ormula, variables, unidad, rango deseado, fuente de datos, frecuencia y responsable.
+    \item Se ha garantizado la \textbf{trazabilidad normativa} entre las m\'etricas, las fichas Usuario--Tarea--Contexto del Escenario 4, y los requerimientos no funcionales del caso MediSalud.
+    \item Las f\'ormulas est\'an listas para ser \textbf{implementadas como c\'odigo ejecutable} en Python (Escenario 8), transformando as\'i conceptos normativos abstractos en instrumentos de medici\'on autom\'aticos.
+\end{itemize}
+\end{tcolorbox}
 
 \end{document}

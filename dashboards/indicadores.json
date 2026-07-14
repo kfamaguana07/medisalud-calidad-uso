@@ -1,0 +1,57 @@
+{
+  "metricas": {
+    "Efectividad": {
+      "valor": 0.9651,
+      "umbral": 0.95,
+      "cumple": "True",
+      "unidad": "proporcion"
+    },
+    "Eficiencia": {
+      "valor": 7.43,
+      "umbral": 8.0,
+      "cumple": "True",
+      "unidad": "segundos"
+    },
+    "Satisfaccion": {
+      "valor": 0.7107,
+      "umbral": 0.8,
+      "cumple": "False",
+      "unidad": "proporcion"
+    },
+    "Libertad de Riesgo": {
+      "valor": 0.05,
+      "umbral": 0.01,
+      "cumple": false,
+      "unidad": "proporcion"
+    },
+    "Cobertura de Contexto": {
+      "valor": 0.9805,
+      "umbral": 0.9,
+      "cumple": "True",
+      "unidad": "proporcion"
+    }
+  },
+  "eficiencia_por_sede": {
+    "Ambato": 7.48,
+    "Cuenca": 7.4,
+    "Guayaquil": 7.37,
+    "Manta": 7.52,
+    "Quito": 7.43
+  },
+  "efectividad_por_sede": {
+    "Cuenca": 0.9578,
+    "Ambato": 0.96,
+    "Manta": 0.9622,
+    "Quito": 0.9667,
+    "Guayaquil": 0.9711
+  },
+  "csat_por_rol": {
+    "Medico": 2.22,
+    "Enfermeria": 4.06,
+    "Paciente": 4.14,
+    "Personal de admision": 4.17
+  },
+  "total_logs_hce": 3150,
+  "total_encuestas": 150,
+  "total_incidentes": 3000
+}

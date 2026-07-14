@@ -14,7 +14,7 @@ def cargar_datos():
     """Carga los tres datasets base del programa de medicion."""
     logs = pd.read_csv("data/logs_hce.csv")
     encuesta = pd.read_csv("data/encuesta_satisfaccion.csv")
-    incidentes = pd.read_csv("data/incidentes_2025.csv")
+    incidentes = pd.read_csv("data/incidentes_2025_iso_25022.csv")
     return logs, encuesta, incidentes
 
 def metrica_efectividad(logs: pd.DataFrame) -> dict:

@@ -4,78 +4,218 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{float}
 \usepackage[hidelinks]{hyperref}
 \usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{amsmath}
 \geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
 
-\title{\textbf{Escenario 4: Identificaci\'on de Atributos de Calidad en Uso}}
-\author{
-\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
-\textbf{Docente:} Ing. Diego Gamboa \\
-\textbf{Grupo 7 --- Calidad en Uso} \\
-\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
-}
-\date{\today}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Aseguramiento de la Calidad del Software -- NRC 30733}
+\lhead{Grupo 7 -- Calidad en Uso}
+\cfoot{\thepage}
 
 \begin{document}
 
-\maketitle
+% ============================================================
+% CARATULA
+% ============================================================
+\begin{titlepage}
+\centering
+{\Large \textbf{Departamento de Ciencias de la Computaci\'on}}\\[0.3cm]
+{\large Ingenier\'ia de Software}\\[1.5cm]
 
-\section{Descripci\'on General}
-Este escenario tiene como objetivo identificar, a partir de las tareas reales de los usuarios de MediSalud HIS, los atributos concretos de Calidad en Uso que deben medirse, estableciendo tareas, usuarios y contextos de uso seg\'un la estructura exigida por la norma ISO/IEC 25022.
+{\LARGE \textbf{Escenario 4: Identificaci\'on de Atributos de\\Calidad en Uso}}\\[0.5cm]
+{\large Medici\'on de la Calidad en Uso mediante ISO/IEC 25022}\\[0.3cm]
+{\large Caso de estudio: Red Hospitalaria MediSalud Ecuador}\\[2cm]
 
+\begin{tabular}{ll}
+\textbf{Asignatura:} & Aseguramiento de la Calidad del Software \\
+\textbf{NRC:}        & 30733 \\
+\textbf{Docente:}    & Ing. Diego Gamboa \\
+\textbf{Repositorio:} & \url{https://github.com/kfamaguana07/medisalud-calidad-uso.git} \\
+\end{tabular}\\[1.5cm]
+
+\textbf{Integrantes}\\[0.3cm]
+Kevin Amagua\~na \\
+Jairo Bonilla \\
+Darwin Panchez \\
+Eduardo Mortensen \\[2cm]
+
+{\large Universidad de las Fuerzas Armadas ESPE}\\[0.3cm]
+{\large Julio 2026}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Introducci\'on}
+El presente informe documenta el desarrollo del \textbf{Escenario 4} del taller pr\'actico \textit{Medici\'on de la Calidad en Uso mediante ISO/IEC 25022}, cuyo prop\'osito es identificar, a partir de las tareas reales de los usuarios de MediSalud HIS, los \textbf{atributos concretos de Calidad en Uso} que deben medirse.
+
+Mientras que en el Escenario 3 se comprendi\'o la familia SQuaRE y sus tres niveles de calidad, en este escenario se da el paso cr\'itico de \textbf{operacionalizar} los procesos de negocio abstractos en tareas medibles y contextos de uso expl\'icitos, siguiendo el modelo \textbf{Usuario--Tarea--Contexto} exigido por la norma ISO/IEC 25022.
+
+\subsection{Objetivo del escenario}
+Definir al menos tres fichas formales de \textbf{Usuario--Tarea--Contexto} para los procesos cr\'iticos de MediSalud HIS, vinculando cada una con los atributos de calidad en uso (Efectividad, Eficiencia, Satisfacci\'on, Libertad de Riesgo, Cobertura de Contexto) que ser\'an medidos en los escenarios subsiguientes.
+
+% ============================================================
+\section{Marco Conceptual: el Modelo Usuario--Tarea--Contexto}
+
+La norma ISO/IEC 25022 establece que la calidad en uso \textbf{no puede medirse en abstracto}: requiere especificar expl\'icitamente:
+\begin{enumerate}
+    \item \textbf{Usuario:} el perfil del usuario real que interact\'ua con el sistema (rol, nivel de experiencia, frecuencia de uso).
+    \item \textbf{Tarea:} la actividad concreta que el usuario intenta realizar con el sistema (registrar una nota cl\'inica, agendar una cita, facturar una consulta).
+    \item \textbf{Contexto de uso:} las condiciones ambientales, t\'ecnicas y organizacionales bajo las cuales se ejecuta la tarea (horario, sede, conectividad, carga concurrente).
+\end{enumerate}
+
+\begin{tcolorbox}[colback=blue!5, colframe=blue!50!black, title=Idea central]
+Sin una definici\'on expl\'icita de Usuario--Tarea--Contexto, cualquier m\'etrica de calidad en uso carece de validez, porque el mismo sistema puede exhibir un rendimiento excelente en condiciones controladas y degradarse significativamente en producci\'on. El Escenario 3 ya demostr\'o esto con los 63 incidentes de ``nota de evoluci\'on'' que exceden los 8 segundos del RNF-01.
+\end{tcolorbox}
+
+% ============================================================
 \section{Selecci\'on de Procesos Cr\'iticos}
-A continuaci\'on, se definen las tareas representativas de usuario y sus atributos de calidad en uso para tres procesos cr\'iticos del caso MediSalud HIS, siguiendo el modelo Usuario--Tarea--Contexto.
 
-\subsection{Proceso 1: Atenci\'on M\'edica y Registro de HCE}
-\begin{table}[h!]
+A partir del an\'alisis inicial realizado en el Escenario 1 (Tabla 1.1) y la clasificaci\'on de incidentes del Escenario 2, se seleccionaron los tres procesos cr\'iticos que concentran la mayor proporci\'on de incidentes y el mayor impacto en el negocio hospitalario.
+
+\begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{lX}
+\caption{Procesos cr\'iticos seleccionados y su justificaci\'on}
+\begin{tabularx}{\textwidth}{l c X}
 \toprule
-\textbf{Campo} & \textbf{Definici\'on} \\
+\textbf{Proceso} & \textbf{\% incidentes} & \textbf{Justificaci\'on} \\
 \midrule
-\textbf{Proceso} & Atenci\'on m\'edica y registro de HCE \\
-\textbf{Usuario primario} & M\'edico tratante \\
-\textbf{Tarea representativa} & Registrar una nota de evoluci\'on cl\'inica completa de un paciente. \\
-\textbf{Contexto de uso} & Consulta externa, horario 10:00--12:00, red interna del hospital de Quito, carga alta de usuarios concurrentes. \\
-\textbf{Atributos relevantes} & Tiempo de tarea (Eficiencia), completitud de la nota (Efectividad), percepci\'on de fluidez (Satisfacci\'on). \\
+Atenci\'on m\'edica y registro de HCE & 25.6\% & M\'odulo con mayor volumen de incidentes. Un retraso afecta directamente las decisiones cl\'inicas urgentes. \\
+Agendamiento de citas & 18.2\% & Segundo m\'odulo con m\'as incidentes. El abandono de pacientes compromete la continuidad de la atenci\'on. \\
+Facturaci\'on con seguro m\'edico & 14.2\% & Los errores de doble facturaci\'on ($\sim$425 incidentes en 2025) generan reclamos y afectan el flujo de caja. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Proceso 2: Agendamiento de Citas por el Paciente}
-\begin{table}[h!]
+% ============================================================
+\section{Fichas de Usuario--Tarea--Contexto}
+
+\subsection{Ficha 1: Registro de nota de evoluci\'on cl\'inica (HCE)}
+
+\begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{lX}
+\caption{Ficha Usuario--Tarea--Contexto: Registro de HCE}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Campo} & \textbf{Definici\'on} \\
 \midrule
-\textbf{Proceso} & Agendamiento y admisi\'on de pacientes \\
-\textbf{Usuario primario} & Paciente \\
-\textbf{Tarea representativa} & Agendar una cita m\'edica a trav\'es del portal de citas (web o app m\'ovil). \\
-\textbf{Contexto de uso} & Portal web/app m\'ovil, conexi\'on a internet inestable o residencial, cualquier horario. \\
-\textbf{Atributos relevantes} & Tiempo para agendar (Eficiencia), completar agendamiento sin errores ni abandonos (Efectividad), percepci\'on de facilidad de uso (Satisfacci\'on). \\
+\textbf{Identificador} & UTC-01 \\
+\textbf{Proceso de negocio} & Atenci\'on m\'edica y registro de historia cl\'inica electr\'onica \\
+\textbf{Usuario primario} & M\'edico tratante de consulta externa \\
+\textbf{Perfil del usuario} & Profesional con formaci\'on m\'edica. Experiencia variable con sistemas HIS (entre 1 y 15 a\~nos). Utiliza el m\'odulo diariamente en jornadas de 4 a 8 horas. \\
+\textbf{Tarea representativa} & Registrar una nota de evoluci\'on cl\'inica completa (anamnesis, examen f\'isico, diagn\'ostico, plan terap\'eutico) para un paciente durante la consulta. \\
+\textbf{Criterio de \'exito} & La nota se guarda correctamente en el repositorio central y est\'a disponible para consulta inmediata por otros profesionales de salud. \\
+\textbf{Contexto de uso} & Consulta externa, horario 10:00--12:00 (horas de m\'axima carga), red interna del hospital de Quito, $\sim$120 m\'edicos concurrentes en el m\'odulo. \\
+\textbf{Infraestructura} & Estaciones de trabajo Dell OptiPlex, navegador Chrome 120+, conexi\'on de red interna a 100 Mbps, backend sobre PostgreSQL y microservicios Spring Boot. \\
+\textbf{Atributos de calidad} & \textbf{Eficiencia} (RNF-01: $\le 8$s), \textbf{Efectividad} (completitud de la nota), \textbf{Satisfacci\'on} (percepci\'on de fluidez). \\
+\textbf{Frecuencia estimada} & 40--60 registros por m\'edico por d\'ia, $\sim$4\,800 registros diarios en toda la red. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\subsection{Proceso 3: Facturaci\'on de Consulta con Seguro M\'edico}
-\begin{table}[h!]
+\subsection{Ficha 2: Agendamiento de cita m\'edica (Portal de Citas)}
+
+\begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{lX}
+\caption{Ficha Usuario--Tarea--Contexto: Agendamiento de citas}
+\begin{tabularx}{\textwidth}{l X}
 \toprule
 \textbf{Campo} & \textbf{Definici\'on} \\
 \midrule
-\textbf{Proceso} & Facturaci\'on y gesti\'on de seguros/reaseguros \\
+\textbf{Identificador} & UTC-02 \\
+\textbf{Proceso de negocio} & Agendamiento y admisi\'on de pacientes \\
+\textbf{Usuario primario} & Paciente (usuario externo) \\
+\textbf{Perfil del usuario} & Ciudadano ecuatoriano, rango de edad 18--75 a\~nos. Nivel de alfabetizaci\'on digital heterog\'eneo (desde nativos digitales hasta usuarios de baja frecuencia). Puede acceder desde dispositivo m\'ovil o computadora de escritorio. \\
+\textbf{Tarea representativa} & Agendar una cita m\'edica en una especialidad disponible, seleccionando fecha, hora y sede, a trav\'es del portal web o la aplicaci\'on m\'ovil de MediSalud. \\
+\textbf{Criterio de \'exito} & La cita queda registrada en el sistema, se env\'ia confirmaci\'on al correo/tel\'efono del paciente, y aparece reflejada en la agenda del m\'edico. \\
+\textbf{Contexto de uso} & Conexi\'on a internet residencial o m\'ovil (3G/4G), cualquier horario del d\'ia, posible acceso desde zonas rurales con baja conectividad. \\
+\textbf{Infraestructura} & Portal web responsivo + app m\'ovil (Flutter), API Gateway, microservicio de agendamiento con base de datos MongoDB. \\
+\textbf{Atributos de calidad} & \textbf{Efectividad} (completar agendamiento sin abandonos), \textbf{Eficiencia} (tiempo de respuesta del portal $<3$s), \textbf{Satisfacci\'on} (facilidad de uso percibida). \\
+\textbf{Frecuencia estimada} & $\sim$800--1\,200 agendamientos diarios en toda la red. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Ficha 3: Facturaci\'on de consulta con seguro m\'edico}
+
+\begin{table}[H]
+\centering
+\caption{Ficha Usuario--Tarea--Contexto: Facturaci\'on con seguro}
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Identificador} & UTC-03 \\
+\textbf{Proceso de negocio} & Facturaci\'on y gesti\'on de seguros/reaseguros \\
 \textbf{Usuario primario} & Personal de admisi\'on / Facturaci\'on \\
-\textbf{Tarea representativa} & Generar la factura de una consulta m\'edica aplicando correctamente la cobertura del seguro del paciente. \\
-\textbf{Contexto de uso} & \'Area de admisi\'on hospitalaria, horario laboral, uso del m\'odulo financiero heredado (SQL Server), presi\'on por tiempos de espera de pacientes. \\
-\textbf{Atributos relevantes} & Tasa de errores de doble facturaci\'on (Libertad de Riesgo), tiempo de facturaci\'on (Eficiencia). \\
+\textbf{Perfil del usuario} & Auxiliar administrativo con formaci\'on contable b\'asica. Experiencia media con el m\'odulo financiero (2--5 a\~nos). Opera bajo presi\'on de tiempos de espera de pacientes en ventanilla. \\
+\textbf{Tarea representativa} & Generar la factura de una consulta m\'edica aplicando correctamente la cobertura del seguro del paciente (IESS, seguro privado o pago directo), sin errores de doble cobro. \\
+\textbf{Criterio de \'exito} & La factura se emite por el monto correcto, se registra una \'unica transacci\'on en el sistema financiero, y no se generan reclamos posteriores del paciente ni de la aseguradora. \\
+\textbf{Contexto de uso} & \'Area de admisi\'on hospitalaria, horario laboral (07:00--17:00), m\'odulo financiero heredado sobre SQL Server 2016, integraci\'on con API del IESS para validaci\'on de coberturas. \\
+\textbf{Infraestructura} & Terminales POS conectadas al m\'odulo financiero, red interna, impresoras t\'ermicas para recibos. \\
+\textbf{Atributos de calidad} & \textbf{Libertad de Riesgo} (tasa de errores de doble facturaci\'on $\le 1\%$, RNF-03), \textbf{Eficiencia} (tiempo de facturaci\'on $<60$s), \textbf{Efectividad} (factura emitida sin errores). \\
+\textbf{Frecuencia estimada} & $\sim$500--700 facturas diarias en las cinco sedes. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
+% ============================================================
+\section{Vinculaci\'on con las Caracter\'isticas ISO/IEC 25022}
+
+La Tabla~5 resume la cobertura de las cinco caracter\'isticas de calidad en uso a trav\'es de las tres fichas definidas.
+
+\begin{table}[H]
+\centering
+\caption{Cobertura de caracter\'isticas ISO/IEC 25022 por ficha}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Caracter\'istica ISO 25022} & \textbf{UTC-01} & \textbf{UTC-02} & \textbf{UTC-03} \\
+\midrule
+Efectividad          & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Eficiencia           & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+Satisfacci\'on        & $\checkmark$ & $\checkmark$ & \\
+Libertad de Riesgo   &              &              & $\checkmark$ \\
+Cobertura de Contexto & \multicolumn{3}{c}{\textit{Transversal: se evaluar\'a por sede}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Preguntas de Discusi\'on}
+
+\begin{enumerate}
+    \item \textbf{?`Por qu\'e es necesario especificar el contexto de uso al medir calidad en uso, si las m\'etricas ya est\'an definidas en la norma?}
+
+    Porque la misma m\'etrica produce resultados radicalmente distintos seg\'un el contexto. Por ejemplo, el tiempo de registro de HCE (Eficiencia) en la sede Quito a las 11:00 (hora pico, 120 m\'edicos concurrentes) puede exceder los 22 segundos (como se demostr\'o en el Escenario 3), mientras que en la sede Manta a las 15:00 (baja carga, 20 m\'edicos) podr\'ia estar por debajo de los 5 segundos. Sin la especificaci\'on del contexto, la m\'etrica pierde su capacidad diagn\'ostica y no permite identificar las causas ra\'iz de la degradaci\'on.
+
+    \item \textbf{?`Qu\'e ocurre si un programa de medici\'on omite la definici\'on de usuarios y tareas?}
+
+    El programa produce m\'etricas que no son accionables. Se podr\'ia obtener un ``tiempo promedio de respuesta'' global del sistema que parece aceptable (e.g., 4 segundos), pero que enmascara el hecho de que para el m\'edico registrando una nota cl\'inica en hora pico el tiempo real es de 22 segundos. Sin saber \textit{qui\'en} hace \textit{qu\'e}, los indicadores generan una falsa sensaci\'on de calidad, perpetuando la cultura de ``decisiones basadas en percepci\'on'' que el taller busca superar.
+
+    \item \textbf{?`C\'omo se relaciona la ficha UTC-03 con el incidente 1003 clasificado en el Escenario 2?}
+
+    El incidente 1003 (asignaci\'on del mismo turno a dos pacientes) fue clasificado como Libertad de Riesgo en el Escenario 2. La ficha UTC-03 formaliza esta relaci\'on al definir la tarea ``Facturar consulta con seguro'' con el atributo de Libertad de Riesgo como prioritario y el umbral RNF-03 ($\le 1\%$ de errores). As\'i, la ficha convierte la clasificaci\'on conceptual del Escenario 2 en un requisito de medici\'on operable.
+\end{enumerate}
+
+% ============================================================
 \section{Conclusiones}
-El equipo ha logrado operacionalizar los procesos de negocio abstractos en tareas medibles y contextos de uso expl\'icitos. Este es el requisito indispensable exigido por la norma ISO/IEC 25022 antes de proceder a dise\~nar las m\'etricas formales.
+
+\begin{tcolorbox}[colback=green!5, colframe=green!50!black, title=Resultado obtenido]
+El desarrollo del Escenario 4 ha permitido:
+\begin{itemize}
+    \item \textbf{Operacionalizar} los tres procesos cr\'iticos de MediSalud HIS (HCE, Agendamiento, Facturaci\'on) en fichas formales de Usuario--Tarea--Contexto, con un nivel de detalle que incluye perfiles de usuario, criterios de \'exito, condiciones de infraestructura y frecuencias estimadas.
+    \item \textbf{Vincular} cada ficha con las caracter\'isticas de calidad en uso de ISO/IEC 25022, asegurando cobertura de las cinco caracter\'isticas del modelo.
+    \item \textbf{Establecer el prerrequisito t\'ecnico} para el dise\~no formal de m\'etricas que se abordar\'a en los Escenarios 5 y 6: sin una definici\'on expl\'icita de qu\'e se mide, a qui\'en y en qu\'e condiciones, ninguna m\'etrica tiene validez.
+\end{itemize}
+\end{tcolorbox}
 
 \end{document}
