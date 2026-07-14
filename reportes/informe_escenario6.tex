@@ -1,0 +1,98 @@
+﻿\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Escenario 6: Dise\~no de M\'etricas}}
+\author{
+\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
+\textbf{Docente:} Ing. Diego Gamboa \\
+\textbf{Grupo 7 --- Calidad en Uso} \\
+\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Descripci\'on General}
+Este escenario dise\~na formalmente, siguiendo la estructura de ISO/IEC 25022, las m\'etricas de Calidad en Uso para las tareas priorizadas de MediSalud, estableciendo: f\'ormula, variables, unidad, rango deseado e interpretaci\'on.
+
+\section{Cat\'alogo de M\'etricas ISO/IEC 25022}
+A continuaci\'on se presentan las fichas est\'andar para 5 m\'etricas (una por caracter\'istica).
+
+\subsection{M\'etrica 1: Completitud de registro de HCE}
+\begin{itemize}
+    \item \textbf{Caracter\'istica:} Efectividad
+    \item \textbf{Prop\'osito:} Medir el grado en que los m\'edicos logran registrar la nota cl\'inica sin fallos.
+    \item \textbf{F\'ormula:} $X = \frac{\text{Notas completadas correctamente}}{\text{Notas intentadas}}$
+    \item \textbf{Variables:} $A$ = Notas completadas, $B$ = Notas intentadas
+    \item \textbf{Unidad:} Proporci\'on (0-1)
+    \item \textbf{Rango deseado:} $X \ge 0.95$
+    \item \textbf{Fuente de datos:} Logs de aplicaci\'on HCE
+    \item \textbf{Frecuencia de medici\'on:} Semanal
+    \item \textbf{Responsable:} Gerencia de Calidad
+\end{itemize}
+
+\subsection{M\'etrica 2: Tiempo promedio de registro de HCE}
+\begin{itemize}
+    \item \textbf{Caracter\'istica:} Eficiencia
+    \item \textbf{Prop\'osito:} Evaluar los recursos (tiempo) utilizados por los m\'edicos para completar el registro.
+    \item \textbf{F\'ormula:} $X = \frac{\sum t_i}{n}$
+    \item \textbf{Variables:} $t_i$ = tiempo invertido por la nota $i$, $n$ = total de notas
+    \item \textbf{Unidad:} Segundos
+    \item \textbf{Rango deseado:} $X \le 8.0$ segundos (seg\'un RNF-01)
+    \item \textbf{Fuente de datos:} Logs con marcas de tiempo (timestamps)
+    \item \textbf{Frecuencia de medici\'on:} Continua / Semanal
+    \item \textbf{Responsable:} TI / Equipo DevOps
+\end{itemize}
+
+\subsection{M\'etrica 3: \'Indice de Satisfacci\'on (CSAT)}
+\begin{itemize}
+    \item \textbf{Caracter\'istica:} Satisfacci\'on
+    \item \textbf{Prop\'osito:} Conocer la percepci\'on de usabilidad del sistema por parte del personal de salud.
+    \item \textbf{F\'ormula:} $X = \frac{\sum \text{Puntajes CSAT}}{N \times 5}$
+    \item \textbf{Variables:} Puntajes CSAT (escala 1 a 5), $N$ = n\'umero de encuestados
+    \item \textbf{Unidad:} Proporci\'on (0-1)
+    \item \textbf{Rango deseado:} $X \ge 0.80$
+    \item \textbf{Fuente de datos:} Encuestas de satisfacci\'on
+    \item \textbf{Frecuencia de medici\'on:} Trimestral
+    \item \textbf{Responsable:} Gerencia de Calidad
+\end{itemize}
+
+\subsection{M\'etrica 4: Tasa de errores de facturaci\'on}
+\begin{itemize}
+    \item \textbf{Caracter\'istica:} Libertad de Riesgo
+    \item \textbf{Prop\'osito:} Medir el riesgo financiero mitigado en el cobro a seguros.
+    \item \textbf{F\'ormula:} $X = \frac{\text{Facturas err\'oneas}}{\text{Facturas emitidas}}$
+    \item \textbf{Variables:} Facturas con error reportado, Total de transacciones
+    \item \textbf{Unidad:} Proporci\'on
+    \item \textbf{Rango deseado:} $X \le 0.01$ (seg\'un RNF-03)
+    \item \textbf{Fuente de datos:} Base de datos transaccional e incidentes
+    \item \textbf{Frecuencia de medici\'on:} Mensual
+    \item \textbf{Responsable:} Departamento de Facturaci\'on
+\end{itemize}
+
+\subsection{M\'etrica 5: Consistencia de eficiencia entre sedes}
+\begin{itemize}
+    \item \textbf{Caracter\'istica:} Cobertura de Contexto
+    \item \textbf{Prop\'osito:} Verificar si el sistema rinde igual en todas las sedes (Quito, Guayaquil, etc.).
+    \item \textbf{F\'ormula:} $X = 1 - \frac{|\text{Tiempo sede A} - \text{Tiempo sede B}|}{\text{Tiempo sede A}}$
+    \item \textbf{Variables:} Tiempo promedio de tarea desagregado por sede
+    \item \textbf{Unidad:} Proporci\'on
+    \item \textbf{Rango deseado:} $X \ge 0.90$
+    \item \textbf{Fuente de datos:} Metadatos de sesi\'on (sede) y logs de tiempo
+    \item \textbf{Frecuencia de medici\'on:} Semanal
+    \item \textbf{Responsable:} Gerencia de Tecnolog\'ia (TI)
+\end{itemize}
+
+\section{Conclusiones}
+Se ha traducido conceptos normativos abstractos en m\'etricas formales, reproducibles y accionables, sentando las bases t\'ecnicas para la automatizaci\'on del programa de medici\'on en MediSalud HIS.
+
+\end{document}

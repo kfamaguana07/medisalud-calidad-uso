@@ -1,0 +1,42 @@
+﻿\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Escenario 8: Automatizaci\'on de la Medici\'on}}
+\author{
+\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
+\textbf{Docente:} Ing. Diego Gamboa \\
+\textbf{Grupo 7 --- Calidad en Uso} \\
+\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Descripci\'on General}
+Este escenario cubre la construcci\'on de un pipeline en Python que calcula autom\'aticamente las cinco m\'etricas ISO/IEC 25022 del cat\'alogo de MediSalud, partiendo de los datos validados en el Escenario 7 y generando un archivo de indicadores en formato JSON, reutilizable para tableros de control (dashboards). Adem\'as, se integr\'o este pipeline en un flujo de Integraci\'on Continua mediante GitHub Actions.
+
+\section{Arquitectura del Pipeline de Medici\'on}
+El proceso automatizado sigue las siguientes etapas:
+\begin{enumerate}
+    \item \textbf{Extracci\'on y Carga:} Se importan los datos crudos (\texttt{data/logs\_hce.csv}, \texttt{encuesta\_satisfaccion.csv} e \texttt{incidentes\_2025.csv}) mediante Pandas en el m\'odulo \texttt{metricas\_iso25022.py}.
+    \item \textbf{C\'alculo de M\'etricas:} Funciones independientes procesan los DataFrames para calcular Efectividad, Eficiencia, Satisfacci\'on, Libertad de Riesgo y Cobertura de Contexto, comparando los valores resultantes contra los umbrales definidos en el caso de estudio (p. ej., RNF-01).
+    \item \textbf{Exportaci\'on de Resultados:} El script \texttt{exportar\_reporte.py} empaqueta el diccionario final de m\'etricas y lo guarda en \texttt{dashboards/indicadores.json}.
+\end{enumerate}
+
+\section{Integraci\'on Continua (CI)}
+Para convertir el programa de medici\'on en un proceso continuo y reproducible, se configur\'o un \textit{workflow} en GitHub Actions (\texttt{.github/workflows/medicion\_calidad.yml}) que se ejecuta autom\'aticamente mediante \texttt{cron} o \texttt{workflow\_dispatch}.
+El \textit{pipeline} instala las dependencias de Python (pandas, numpy), ejecuta los scripts de c\'alculo, y guarda el reporte \texttt{indicadores.json} como un artefacto descargable en el repositorio.
+
+\section{Conclusiones}
+Al finalizar el escenario 8, se ha automatizado por completo el c\'alculo de las m\'etricas de Calidad en Uso. Transformamos as\'i las f\'ormulas normativas abstractas de ISO/IEC 25022 en c\'odigo ejecutable, reproducible y auditable. Este hito es fundamental para abandonar la gesti\'on basada en "percepciones" y transicionar hacia una gobernanza de calidad basada en datos observables.
+
+\end{document}

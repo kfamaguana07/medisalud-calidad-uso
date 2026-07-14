@@ -1,0 +1,47 @@
+﻿\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Escenario 7: Obtenci\'on de Datos}}
+\author{
+\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
+\textbf{Docente:} Ing. Diego Gamboa \\
+\textbf{Grupo 7 --- Calidad en Uso} \\
+\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Descripci\'on General}
+Este escenario aborda la generaci\'on, identificaci\'on y validaci\'on de las fuentes de datos necesarias (logs de aplicaci\'on, base de datos, encuestas de satisfacci\'on e incidentes) para calcular las m\'etricas dise\~nadas en el Escenario 6. El prop\'osito es preparar los archivos de datos base que alimentar\'an la automatizaci\'on en el Escenario 8.
+
+\section{Fuentes de Datos}
+De acuerdo con la norma ISO/IEC 25022, se han preparado las siguientes fuentes de datos simuladas de MediSalud:
+
+\begin{itemize}
+    \item \textbf{data/logs\_hce.csv}: Contiene los registros de uso del m\'odulo HCE. Para su obtenci\'on, se desarroll\'o el script \texttt{generar\_logs\_hce.py}, el cual simula eventos transaccionales durante 5 d\'ias h\'abiles en 5 sedes, registrando marcas de tiempo (timestamps) y reflejando una degradaci\'on de desempe\~no en horas pico. Esto provee los datos necesarios para la Eficiencia y Efectividad.
+    \item \textbf{data/encuesta\_satisfaccion.csv}: Consiste en un dataset de 150 respuestas CSAT con puntajes del 1 al 5. Fue generado a trav\'es del script \texttt{generar\_encuestas.py}. Provee los datos para la m\'etrica de Satisfacci\'on.
+    \item \textbf{data/incidentes\_2025.csv}: Un repositorio de incidentes reportados, generado en el Escenario 2, que provee los datos de fallos de facturaci\'on requeridos para la m\'etrica de Libertad de Riesgo.
+\end{itemize}
+
+\section{Validaci\'on de Datos}
+Un indicador construido sobre datos incompletos o mal etiquetados producir\'a conclusiones err\'oneas independientemente de la m\'etrica utilizada. Por ello, se realiz\'o una limpieza de datos mediante un script en Python (Pandas) \texttt{01\_validacion\_datos.py}:
+\begin{enumerate}
+    \item \textbf{Verificaci\'on de nulos:} Se constat\'o la inexistencia de datos nulos en columnas cr\'iticas.
+    \item \textbf{Verificaci\'on de rangos l\'ogicos:} Se verificaron tiempos de tarea negativos o inveros\'imiles (e.g. $>$ 120s) filtrando anomal\'ias o abandonos de sesi\'on.
+    \item \textbf{Verificaci\'on de duplicados:} Se asegur\'o que el campo \texttt{evento\_id} es \'unico en los logs transaccionales.
+\end{enumerate}
+
+\section{Conclusiones}
+Al finalizar este escenario, el equipo cuenta con conjuntos de datos base (logs de HCE, encuestas CSAT e incidentes) validados, limpios y libres de valores at\'ipicos perjudiciales, lo que constituye un prerrequisito t\'ecnico ineludible para el c\'alculo autom\'atico de las m\'etricas ISO/IEC 25022.
+
+\end{document}

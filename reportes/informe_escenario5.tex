@@ -1,0 +1,50 @@
+﻿\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Escenario 5: Mapeo de Caracter\'isticas de Calidad}}
+\author{
+\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
+\textbf{Docente:} Ing. Diego Gamboa \\
+\textbf{Grupo 7 --- Calidad en Uso} \\
+\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Descripci\'on General}
+Este escenario tiene como objetivo construir la matriz de mapeo que vincula cada tarea definida bajo el modelo Usuario--Tarea--Contexto con las cinco caracter\'isticas de ISO/IEC 25022, priorizando cu\'ales ser\'an medidas en el programa de MediSalud HIS de acuerdo a su impacto en el negocio y su frecuencia.
+
+\section{Matriz de Priorizaci\'on}
+Se ha priorizado un conjunto de 6 tareas cr\'iticas para el negocio. A continuaci\'on, se detalla la matriz que relaciona cada tarea con su impacto, frecuencia y las caracter\'isticas de calidad ISO/IEC 25022 asociadas.
+
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{l l l X c}
+\toprule
+\textbf{Tarea} & \textbf{Impacto} & \textbf{Frecuencia} & \textbf{Caracter\'istica(s) ISO 25022} & \textbf{Prioridad} \\
+\midrule
+Registrar nota de evoluci\'on & Alto & Alta & Eficiencia, Efectividad & \textbf{1} \\
+Agendar cita en portal & Alto & Alta & Efectividad, Satisfacci\'on & \textbf{1} \\
+Facturar consulta con seguro & Alto & Media & Libertad de Riesgo, Efectividad & \textbf{2} \\
+Completar teleconsulta & Medio & Media & Efectividad, Cobertura Contexto & \textbf{2} \\
+Administrar medicamentos & Alto & Media & Libertad de Riesgo & \textbf{2} \\
+Consultar historial de lab. & Bajo & Alta & Satisfacci\'on & \textbf{3} \\
+\bottomrule
+\end{tabularx}
+\caption{Matriz de mapeo Tarea--Caracter\'istica--Prioridad}
+\end{table}
+
+\section{Conclusiones}
+La elaboraci\'on de esta matriz de mapeo permite comprender que un programa de medici\'on sostenible se construye de forma incremental. Al priorizar las tareas de mayor impacto y frecuencia (prioridades 1 y 2), MediSalud podr\'a enfocar sus esfuerzos de calidad en las \'areas que representan mayor riesgo y valor para la operaci\'on y los usuarios finales.
+
+\end{document}

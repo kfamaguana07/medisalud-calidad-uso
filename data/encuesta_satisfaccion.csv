@@ -1,0 +1,151 @@
+respuesta_id,sede,rol,puntaje_csat,comentario
+1,Quito,Medico,2,Sistema muy lento.
+2,Guayaquil,Paciente,4,
+3,Quito,Medico,4,
+4,Ambato,Medico,1,Sistema muy lento.
+5,Quito,Paciente,4,
+6,Manta,Medico,4,
+7,Guayaquil,Enfermeria,4,
+8,Ambato,Personal de admision,3,
+9,Guayaquil,Enfermeria,4,
+10,Cuenca,Paciente,4,
+11,Cuenca,Medico,1,Sistema muy lento.
+12,Ambato,Medico,2,Sistema muy lento.
+13,Cuenca,Personal de admision,3,
+14,Ambato,Medico,3,
+15,Quito,Personal de admision,5,Excelente servicio.
+16,Cuenca,Paciente,3,
+17,Quito,Paciente,4,
+18,Quito,Paciente,3,
+19,Ambato,Personal de admision,5,Excelente servicio.
+20,Cuenca,Paciente,4,
+21,Cuenca,Paciente,4,
+22,Quito,Paciente,5,Excelente servicio.
+23,Guayaquil,Paciente,5,Excelente servicio.
+24,Ambato,Personal de admision,5,Excelente servicio.
+25,Guayaquil,Personal de admision,3,
+26,Guayaquil,Medico,2,Sistema muy lento.
+27,Ambato,Personal de admision,3,
+28,Guayaquil,Personal de admision,4,
+29,Ambato,Enfermeria,5,Excelente servicio.
+30,Guayaquil,Personal de admision,4,
+31,Guayaquil,Personal de admision,5,Excelente servicio.
+32,Ambato,Enfermeria,4,
+33,Guayaquil,Paciente,5,Excelente servicio.
+34,Ambato,Medico,1,Sistema muy lento.
+35,Quito,Paciente,4,
+36,Ambato,Medico,3,
+37,Ambato,Enfermeria,5,Excelente servicio.
+38,Cuenca,Medico,1,Sistema muy lento.
+39,Manta,Personal de admision,4,
+40,Quito,Personal de admision,5,Excelente servicio.
+41,Guayaquil,Enfermeria,3,
+42,Cuenca,Paciente,5,Excelente servicio.
+43,Quito,Personal de admision,5,Excelente servicio.
+44,Manta,Paciente,4,
+45,Cuenca,Paciente,5,Excelente servicio.
+46,Manta,Medico,4,
+47,Cuenca,Enfermeria,3,
+48,Quito,Personal de admision,4,
+49,Guayaquil,Medico,2,Sistema muy lento.
+50,Manta,Medico,1,Sistema muy lento.
+51,Ambato,Medico,4,
+52,Guayaquil,Paciente,5,Excelente servicio.
+53,Manta,Paciente,4,
+54,Manta,Enfermeria,4,
+55,Manta,Paciente,4,
+56,Ambato,Personal de admision,5,Excelente servicio.
+57,Manta,Enfermeria,3,
+58,Guayaquil,Paciente,3,
+59,Cuenca,Medico,4,
+60,Manta,Paciente,5,Excelente servicio.
+61,Guayaquil,Medico,1,Sistema muy lento.
+62,Quito,Paciente,3,
+63,Quito,Personal de admision,3,
+64,Manta,Paciente,4,
+65,Ambato,Paciente,5,Excelente servicio.
+66,Guayaquil,Enfermeria,4,
+67,Ambato,Enfermeria,4,
+68,Quito,Medico,3,
+69,Cuenca,Enfermeria,5,Excelente servicio.
+70,Ambato,Medico,1,Sistema muy lento.
+71,Quito,Enfermeria,4,
+72,Quito,Paciente,4,
+73,Guayaquil,Enfermeria,4,
+74,Ambato,Paciente,4,
+75,Ambato,Paciente,3,
+76,Ambato,Medico,1,Sistema muy lento.
+77,Manta,Medico,1,Sistema muy lento.
+78,Guayaquil,Paciente,5,Excelente servicio.
+79,Ambato,Enfermeria,4,
+80,Ambato,Medico,2,Sistema muy lento.
+81,Ambato,Medico,3,
+82,Cuenca,Enfermeria,4,
+83,Ambato,Enfermeria,4,
+84,Guayaquil,Personal de admision,4,
+85,Quito,Medico,2,Sistema muy lento.
+86,Quito,Medico,4,
+87,Ambato,Paciente,3,
+88,Manta,Medico,2,Sistema muy lento.
+89,Quito,Medico,2,Sistema muy lento.
+90,Ambato,Medico,4,
+91,Guayaquil,Medico,4,
+92,Quito,Enfermeria,5,Excelente servicio.
+93,Manta,Personal de admision,4,
+94,Guayaquil,Personal de admision,4,
+95,Cuenca,Enfermeria,4,
+96,Cuenca,Enfermeria,4,
+97,Quito,Medico,3,
+98,Manta,Medico,1,Sistema muy lento.
+99,Manta,Paciente,5,Excelente servicio.
+100,Cuenca,Paciente,4,
+101,Quito,Paciente,4,
+102,Cuenca,Paciente,5,Excelente servicio.
+103,Manta,Personal de admision,5,Excelente servicio.
+104,Manta,Medico,4,
+105,Cuenca,Medico,2,Sistema muy lento.
+106,Cuenca,Medico,1,Sistema muy lento.
+107,Manta,Paciente,4,
+108,Cuenca,Paciente,4,
+109,Guayaquil,Personal de admision,5,Excelente servicio.
+110,Ambato,Personal de admision,3,
+111,Quito,Enfermeria,4,
+112,Quito,Medico,2,Sistema muy lento.
+113,Guayaquil,Personal de admision,4,
+114,Ambato,Enfermeria,5,Excelente servicio.
+115,Quito,Medico,1,Sistema muy lento.
+116,Guayaquil,Medico,2,Sistema muy lento.
+117,Manta,Paciente,5,Excelente servicio.
+118,Guayaquil,Medico,2,Sistema muy lento.
+119,Cuenca,Medico,2,Sistema muy lento.
+120,Guayaquil,Paciente,3,
+121,Cuenca,Enfermeria,5,Excelente servicio.
+122,Guayaquil,Paciente,4,
+123,Guayaquil,Enfermeria,3,
+124,Guayaquil,Personal de admision,5,Excelente servicio.
+125,Guayaquil,Personal de admision,4,
+126,Quito,Enfermeria,3,
+127,Ambato,Paciente,4,
+128,Ambato,Personal de admision,4,
+129,Guayaquil,Paciente,3,
+130,Guayaquil,Enfermeria,4,
+131,Cuenca,Medico,2,Sistema muy lento.
+132,Cuenca,Enfermeria,5,Excelente servicio.
+133,Cuenca,Medico,1,Sistema muy lento.
+134,Cuenca,Paciente,5,Excelente servicio.
+135,Cuenca,Medico,1,Sistema muy lento.
+136,Manta,Enfermeria,4,
+137,Cuenca,Enfermeria,5,Excelente servicio.
+138,Manta,Medico,3,
+139,Manta,Paciente,4,
+140,Quito,Enfermeria,3,
+141,Manta,Paciente,4,
+142,Ambato,Medico,2,Sistema muy lento.
+143,Manta,Personal de admision,3,
+144,Cuenca,Personal de admision,5,Excelente servicio.
+145,Cuenca,Enfermeria,4,
+146,Manta,Paciente,4,
+147,Ambato,Enfermeria,4,
+148,Manta,Personal de admision,5,Excelente servicio.
+149,Manta,Medico,2,Sistema muy lento.
+150,Cuenca,Paciente,5,Excelente servicio.

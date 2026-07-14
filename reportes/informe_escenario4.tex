@@ -1,0 +1,81 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+
+\title{\textbf{Escenario 4: Identificaci\'on de Atributos de Calidad en Uso}}
+\author{
+\textbf{Asignatura:} Aseguramiento de la Calidad del Software --- NRC 30733 \\
+\textbf{Docente:} Ing. Diego Gamboa \\
+\textbf{Grupo 7 --- Calidad en Uso} \\
+\textbf{Integrantes:} Kevin Amagua\~na, Jairo Bonilla, Darwin Panchez, Eduardo Mortensen
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Descripci\'on General}
+Este escenario tiene como objetivo identificar, a partir de las tareas reales de los usuarios de MediSalud HIS, los atributos concretos de Calidad en Uso que deben medirse, estableciendo tareas, usuarios y contextos de uso seg\'un la estructura exigida por la norma ISO/IEC 25022.
+
+\section{Selecci\'on de Procesos Cr\'iticos}
+A continuaci\'on, se definen las tareas representativas de usuario y sus atributos de calidad en uso para tres procesos cr\'iticos del caso MediSalud HIS, siguiendo el modelo Usuario--Tarea--Contexto.
+
+\subsection{Proceso 1: Atenci\'on M\'edica y Registro de HCE}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Proceso} & Atenci\'on m\'edica y registro de HCE \\
+\textbf{Usuario primario} & M\'edico tratante \\
+\textbf{Tarea representativa} & Registrar una nota de evoluci\'on cl\'inica completa de un paciente. \\
+\textbf{Contexto de uso} & Consulta externa, horario 10:00--12:00, red interna del hospital de Quito, carga alta de usuarios concurrentes. \\
+\textbf{Atributos relevantes} & Tiempo de tarea (Eficiencia), completitud de la nota (Efectividad), percepci\'on de fluidez (Satisfacci\'on). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Proceso 2: Agendamiento de Citas por el Paciente}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Proceso} & Agendamiento y admisi\'on de pacientes \\
+\textbf{Usuario primario} & Paciente \\
+\textbf{Tarea representativa} & Agendar una cita m\'edica a trav\'es del portal de citas (web o app m\'ovil). \\
+\textbf{Contexto de uso} & Portal web/app m\'ovil, conexi\'on a internet inestable o residencial, cualquier horario. \\
+\textbf{Atributos relevantes} & Tiempo para agendar (Eficiencia), completar agendamiento sin errores ni abandonos (Efectividad), percepci\'on de facilidad de uso (Satisfacci\'on). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Proceso 3: Facturaci\'on de Consulta con Seguro M\'edico}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Campo} & \textbf{Definici\'on} \\
+\midrule
+\textbf{Proceso} & Facturaci\'on y gesti\'on de seguros/reaseguros \\
+\textbf{Usuario primario} & Personal de admisi\'on / Facturaci\'on \\
+\textbf{Tarea representativa} & Generar la factura de una consulta m\'edica aplicando correctamente la cobertura del seguro del paciente. \\
+\textbf{Contexto de uso} & \'Area de admisi\'on hospitalaria, horario laboral, uso del m\'odulo financiero heredado (SQL Server), presi\'on por tiempos de espera de pacientes. \\
+\textbf{Atributos relevantes} & Tasa de errores de doble facturaci\'on (Libertad de Riesgo), tiempo de facturaci\'on (Eficiencia). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Conclusiones}
+El equipo ha logrado operacionalizar los procesos de negocio abstractos en tareas medibles y contextos de uso expl\'icitos. Este es el requisito indispensable exigido por la norma ISO/IEC 25022 antes de proceder a dise\~nar las m\'etricas formales.
+
+\end{document}
