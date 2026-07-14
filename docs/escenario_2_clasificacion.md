@@ -2,11 +2,10 @@
 
 ## Información General
 
-**Asignatura:** Calidad de Software  
+**Asignatura:** Aseguramiento de la Calidad del Software
 **Tema:** Comprensión de la norma ISO/IEC 25022
 
 **Integrantes:**
-
 - Jairo Bonilla
 - Kevin Amaguañá
 - Edwin Panches
@@ -18,59 +17,73 @@
 
 ## Paso 2. Tabla de Clasificación de Incidentes
 
-A partir de los incidentes obtenidos durante la ejecución del escenario de evaluación, se presenta la clasificación y la justificación técnica de cada caso de acuerdo con las características de calidad en uso definidas por la norma **ISO/IEC 25022**.
+A partir del fragmento representativo de incidentes del dataset `data/incidentes_2025_iso_25022.csv`, se presenta la clasificación de cada caso de acuerdo con las cinco características de calidad en uso definidas por la norma **ISO/IEC 25022**:
 
 | ID | Característica | Justificación Técnica |
 |----|---------------|----------------------|
-| **1001** | **Efectividad** | El paciente no consigue completar el proceso de agendamiento después de varios intentos, por lo que el objetivo principal de la tarea no puede alcanzarse correctamente. |
-| **1002** | **Efectividad** | La orden médica no llega al módulo de farmacia debido a una falla de sincronización, impidiendo completar adecuadamente el proceso asistencial previsto. |
-| **1003** | **Libertad de Riesgo** | La asignación del mismo turno a dos pacientes diferentes genera inconsistencias operativas y posibles afectaciones en la atención médica, introduciendo riesgos para la organización y los usuarios. |
-| **1004** | **Efectividad** | La información registrada por enfermería no está disponible para el médico durante la consulta, impidiendo disponer de todos los datos necesarios para realizar correctamente la atención. |
-| **1005** | **Eficiencia** | El tiempo de respuesta del portal de citas supera el umbral esperado durante horas de alta demanda, incrementando el tiempo necesario para completar la tarea y disminuyendo el desempeño del sistema. |
-| **1006** | **Libertad de Riesgo** | La imposibilidad de validar la firma electrónica del médico compromete la autenticidad e integridad del registro clínico, generando riesgos legales y de trazabilidad documental. |
+| **1001** | **Eficiencia** | La nota de evolución se guarda correctamente (la tarea se completa), pero tarda 22 segundos, muy por encima del umbral de 8 segundos definido en RNF-01. El problema es de recursos (tiempo) utilizados para lograr el objetivo, no de fracaso del objetivo. |
+| **1002** | **Efectividad** | El usuario no logra agendar la cita tras 3 intentos. El objetivo principal de la tarea no puede alcanzarse, lo que afecta directamente la completitud y precisión con que el usuario cumple su meta. |
+| **1003** | **Libertad de Riesgo** | La factura duplicada al reintentar el pago genera un riesgo económico tanto para el paciente (doble cobro) como para la organización (discrepancias financieras, reembolsos). No se trata de un problema de efectividad (la factura se emite), sino del riesgo financiero asociado. |
+| **1004** | **Efectividad** | La videollamada se corta a los 4 minutos, interrumpiendo la teleconsulta antes de que el paciente y el médico puedan completar la atención. El objetivo de la tarea no se alcanza en su totalidad. |
+| **1005** | **Libertad de Riesgo** | La exposición breve de datos de otro paciente constituye un riesgo de privacidad y seguridad de la información. Aunque el médico logra visualizar datos (efectividad), el problema principal es la violación de confidencialidad y el incumplimiento regulatorio de protección de datos sensibles en salud. |
+| **1006** | **Efectividad** | El formulario confuso provoca que el usuario abandone el registro antes de completarlo. La tarea de agendamiento no se finaliza, lo que constituye una falla de efectividad: el usuario no alcanza su objetivo. |
 
 ---
 
-# 2. Análisis Crítico: Discusión del Incidente 1006
+## Análisis Crítico: Discusión del Incidente 1005
 
-## Pregunta
+### Pregunta (del taller)
 
 **¿Por qué corresponde principalmente a Libertad de Riesgo y no a Efectividad, a pesar de tratarse también de un error del sistema?**
 
 ### Análisis
 
-El incidente se clasifica principalmente como **Libertad de Riesgo** porque el impacto más importante no consiste únicamente en que una tarea no pueda finalizar correctamente, sino en las consecuencias que produce sobre la confiabilidad y la validez legal de la información clínica.
+El incidente **1005** describe que "Datos de otro paciente visibles brevemente" durante el uso del módulo HCE por parte de un médico. A primera vista, podría clasificarse como _Efectividad_ porque el sistema muestra información incorrecta (datos de otro paciente), lo que constituye una imprecisión en la tarea. Sin embargo, el impacto más grave no es la inexactitud momentánea, sino la **exposición de datos sensibles de salud** de un tercero sin su consentimiento.
 
-La firma electrónica garantiza la autenticidad del profesional responsable, la integridad del documento y la trazabilidad del historial médico. Cuando esta validación falla, el sistema genera un riesgo significativo desde el punto de vista legal, normativo y de seguridad de la información. Aunque el proceso de cierre de la consulta también resulta afectado, la principal consecuencia es el riesgo asociado a la pérdida de confianza en los registros clínicos y al posible incumplimiento de requisitos regulatorios.
+La _Libertad de Riesgo_ mide el grado en que el sistema mitiga riesgos económicos, de salud, de seguridad o ambientales. En este caso:
 
----
+1. **Riesgo de privacidad**: Se viola la confidencialidad del historial clínico del paciente cuyos datos fueron expuestos, lo que contraviene normativas de protección de datos (Ley de Protección de Datos Personales en Ecuador, estándares internacionales como HIPAA).
 
-# 3. Preguntas de Discusión
+2. **Riesgo legal**: La exposición de información clínica sin autorización puede derivar en sanciones legales, demandas y pérdida de licencias operativas para MediSalud.
 
-## 1. ¿Puede un sistema ser efectivo pero no eficiente? Dé un ejemplo del caso MediSalud.
+3. **Riesgo reputacional**: La confianza de los pacientes en el sistema se erosiona si perciben que sus datos pueden ser vistos por otros.
 
-### Respuesta
+Aunque el sistema sigue siendo _efectivo_ en el sentido de que el médico logra visualizar información clínica (su objetivo inmediato de consultar datos se cumple), el costo asociado a esa efectividad es la exposición de datos ajenos. El problema central no es que la tarea falle, sino que el sistema introduce un **riesgo inaceptable** durante su ejecución normal.
 
-Sí. Un sistema puede permitir que los usuarios completen correctamente una tarea y, por tanto, ser **efectivo**, pero al mismo tiempo requerir un tiempo o una cantidad de recursos excesivos para lograrlo, lo que afecta su **eficiencia**.
-
-### Ejemplo
-
-En el caso de **MediSalud**, el incidente **1005** muestra esta situación. El portal de citas continúa permitiendo que el paciente realice el proceso de agendamiento; sin embargo, durante las horas de mayor demanda el tiempo de respuesta supera los valores esperados. Aunque la tarea puede completarse, el elevado tiempo de espera reduce el desempeño del sistema y afecta la experiencia del usuario, representando un problema de eficiencia.
+Por lo tanto, el incidente 1005 corresponde principalmente a **Libertad de Riesgo**, porque el riesgo de privacidad y las consecuencias legales/reputacionales dominan sobre cualquier consideración de efectividad de la tarea.
 
 ---
 
-## 2. ¿Por qué la Cobertura de Contexto es especialmente relevante para una red hospitalaria con sedes en cinco ciudades distintas?
+## 3. Preguntas de Discusión
 
-### Respuesta
+### 1. ¿Puede un sistema ser efectivo pero no eficiente? Dé un ejemplo del caso MediSalud.
 
-La **Cobertura de Contexto** es una característica fundamental porque evalúa si un sistema mantiene un nivel adecuado de calidad en diferentes condiciones de uso y entornos operativos.
+**Respuesta:**
 
-En el caso de **MediSalud**, los incidentes registrados provienen de sedes ubicadas en **Quito, Guayaquil, Cuenca y Manta**, lo que evidencia que el sistema es utilizado en ambientes con diferentes condiciones de infraestructura, conectividad, carga de usuarios y procesos clínicos.
+Sí. Un sistema puede permitir que los usuarios completen correctamente una tarea y, por tanto, ser **efectivo**, pero al mismo tiempo requerir un tiempo o recursos excesivos para lograrlo, lo que afecta su **eficiencia**.
 
-Evaluar la cobertura de contexto permite comprobar que las funcionalidades del sistema mantienen un comportamiento consistente independientemente de la sede donde se utilicen. Esto contribuye a garantizar que la atención médica, la gestión de citas y el manejo de la historia clínica electrónica ofrezcan el mismo nivel de calidad, seguridad y rendimiento para todos los usuarios de la red hospitalaria.
+**Ejemplo:**
+
+El incidente **1001** del dataset lo ilustra perfectamente. La nota de evolución clínica **se guarda correctamente** (efectividad: el médico logra su objetivo), pero tarda **22 segundos**, muy por encima del umbral de 8 segundos definido por el requerimiento RNF-01. Durante una consulta de 15 minutos, una demora de 14 segundos adicionales por nota puede acumularse significativamente a lo largo de la jornada, afectando la productividad del médico y el tiempo de espera de los pacientes.
 
 ---
 
-# Conclusión
+### 2. ¿Por qué la Cobertura de Contexto es especialmente relevante para una red hospitalaria con sedes en cinco ciudades distintas?
 
-La clasificación de los incidentes conforme a la **ISO/IEC 25022** permite identificar cómo cada problema impacta la calidad en uso del sistema desde diferentes perspectivas. Mientras algunos incidentes afectan directamente la efectividad de las tareas, otros representan riesgos para la organización o disminuyen la eficiencia del servicio. Este análisis facilita priorizar acciones de mejora orientadas a incrementar la calidad del software y garantizar un funcionamiento confiable en todas las sedes donde opera MediSalud.
+**Respuesta:**
+
+La **Cobertura de Contexto** evalúa si un sistema mantiene un nivel adecuado de calidad en diferentes condiciones de uso y entornos operativos. Para MediSalud, que opera en Quito, Guayaquil, Cuenca, Ambato y Manta, esta característica es crítica porque:
+
+1. **Infraestructura heterogénea**: Cada sede puede tener diferente calidad de conexión a internet, hardware, y capacidad de cómputo. Un sistema que funciona bien en Quito podría degradarse en Manta si no está diseñado para adaptarse a contextos variables.
+
+2. **Carga de usuarios desigual**: Quito y Guayaquil concentran la mayor cantidad de pacientes y personal médico. Una métrica que mida solo el desempeño promedio global podría ocultar que en las sedes más grandes el sistema se degrada en horas pico.
+
+3. **Procesos locales**: Cada ciudad puede tener variaciones en los flujos de atención médica, horarios de consulta y perfiles de pacientes. La Cobertura de Contexto garantiza que el sistema se comporte consistentemente sin importar estas diferencias.
+
+4. **Equidad en la atención**: Los pacientes de todas las sedes merecen el mismo nivel de calidad en el servicio. Sin medir Cobertura de Contexto, MediSalud no podría detectar si una sede está recibiendo una experiencia significativamente peor que otra.
+
+---
+
+## Conclusión
+
+La clasificación de los incidentes conforme a la **ISO/IEC 25022** permite identificar cómo cada problema impacta la calidad en uso del sistema desde diferentes perspectivas. El incidente 1001 evidencia una falla de _eficiencia_ (tarea completada pero con recursos excesivos), los incidentes 1002, 1004 y 1006 afectan la _efectividad_ (tareas no completadas), y los incidentes 1003 y 1005 representan principalmente _libertad de riesgo_ (consecuencias económicas y de privacidad). Este análisis facilita priorizar acciones de mejora orientadas a incrementar la calidad del software y garantizar un funcionamiento confiable, efectivo y seguro en todas las sedes donde opera MediSalud.

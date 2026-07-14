@@ -23,7 +23,7 @@ HIS, garantizando que el programa sea sostenible y accionable desde la primera i
 2. **Matriz de mapeo Tarea–Característica–Prioridad** con 6 tareas priorizadas:
    - Prioridad 1 (P ≥ 15): Registro HCE, Agendamiento, Facturación, Adm. medicamentos.
    - Prioridad 2 (9 ≤ P < 15): Teleconsulta, Historial de laboratorio.
-   - Las 4 tareas de Prioridad 1 concentran el 72% del volumen total de incidentes de 2025.
+   - Las 4 tareas de Prioridad 1 concentran el 66.6% del volumen total de incidentes de 2025.
 
 3. **Gráfico de priorización** (`img/priorizacion_tareas.png`), generado por el script
    `generar_evidencia_escenarios.py`, que visualiza la puntuación de cada tarea y el umbral
@@ -66,7 +66,7 @@ pdflatex informe_escenario5.tex   # segunda pasada para el índice
 | Tareas de Prioridad 2 | 2 (Teleconsulta, Historial de laboratorio) |
 | Puntuación máxima | 25 (Registro HCE y Agendamiento) |
 | Características cubiertas (Prioridad 1+2) | 5/5 |
-| % de incidentes cubiertos por Prioridad 1 | 72% |
+| % de incidentes cubiertos por Prioridad 1 | 66.6% |
 
 ## Conclusión del escenario
 

@@ -11,6 +11,6 @@ salida = {
 
 os.makedirs("dashboards", exist_ok=True)
 with open("dashboards/indicadores.json", "w", encoding="utf-8") as f:
-    json.dump(salida, f, indent=2, ensure_ascii=False)
+    json.dump(salida, f, indent=2, ensure_ascii=False, default=str)
 
 print("Reporte exportado a dashboards/indicadores.json")

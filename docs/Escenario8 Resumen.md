@@ -25,11 +25,11 @@ Continua** mediante GitHub Actions.
 
    | Métrica | Valor | Umbral | Estado |
    |---|---|---|---|
-   | M-01 Efectividad | 0.9651 | ≥ 0.95 | ✅ CUMPLE |
-   | M-02 Eficiencia | 7.43s | ≤ 8.0s | ✅ CUMPLE |
-   | M-03 Satisfacción | 0.7107 | ≥ 0.80 | ❌ NO CUMPLE |
-   | M-04 Libertad de Riesgo | 0.0500 | ≤ 0.01 | ❌ NO CUMPLE |
-   | M-05 Cobertura Contexto | 0.9805 | ≥ 0.90 | ✅ CUMPLE |
+   | M-01 Efectividad | 0.9651 | ≥ 0.95 | CUMPLE |
+   | M-02 Eficiencia | 7.43s | ≤ 8.0s | CUMPLE |
+   | M-03 Satisfacción | 0.7107 | ≥ 0.80 | NO CUMPLE |
+   | M-04 Libertad de Riesgo | 0.0501 | ≤ 0.01 | NO CUMPLE |
+   | M-05 Cobertura Contexto | 0.9805 | ≥ 0.90 | CUMPLE |
 
 3. **Dashboard de métricas** (`img/dashboard_metricas.png`): visualización automática con
    barras verdes (cumple) y rojas (no cumple), incluyendo valor, unidad y estado.
@@ -96,7 +96,7 @@ pdflatex informe_escenario8.tex   # segunda pasada para el índice
 | Métricas calculadas automáticamente | 5 |
 | Métricas que cumplen umbral | 3/5 (Efectividad, Eficiencia, Cobertura) |
 | Métricas que NO cumplen umbral | 2/5 (Satisfacción, Libertad de Riesgo) |
-| Tasa de errores de facturación | 5.0% (5× el umbral RNF-03 de 1%) |
+| Tasa de errores de facturación | 5.01% (~5× el umbral RNF-03 de 1%) |
 | CSAT médicos | 2.22/5 (significativamente debajo del umbral 4.0/5) |
 | Variación entre sedes | < 2% (alta Cobertura de Contexto) |
 | Formato de salida | JSON (dashboards/indicadores.json) |

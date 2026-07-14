@@ -109,14 +109,14 @@ La Tabla~1 presenta los resultados obtenidos tras ejecutar el pipeline sobre los
 M-01 Efectividad & 0.9651 & $\ge 0.95$ & \textcolor{green!60!black}{\textbf{CUMPLE}} & El 96.5\% de las notas se completan exitosamente. \\
 M-02 Eficiencia & 7.43s & $\le 8.0$s & \textcolor{green!60!black}{\textbf{CUMPLE}} & Tiempo promedio global dentro del umbral RNF-01. \\
 M-03 Satisfacci\'on & 0.7107 & $\ge 0.80$ & \textcolor{red}{\textbf{NO CUMPLE}} & CSAT promedio de 3.55/5, insatisfacci\'on de m\'edicos. \\
-M-04 Libertad Riesgo & 0.0500 & $\le 0.01$ & \textcolor{red}{\textbf{NO CUMPLE}} & 5\% de errores de facturaci\'on (5$\times$ el umbral). \\
+M-04 Libertad Riesgo & 0.0501 & $\le 0.01$ & \textcolor{red}{\textbf{NO CUMPLE}} & 5\% de errores de facturaci\'on (5$\times$ el umbral). \\
 M-05 Cob. Contexto & 0.9805 & $\ge 0.90$ & \textcolor{green!60!black}{\textbf{CUMPLE}} & Variaci\'on $<$2\% entre sedes. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \begin{tcolorbox}[colback=red!5, colframe=red!50!black, title=Hallazgo cr\'itico]
-Dos de las cinco m\'etricas \textbf{no cumplen} sus umbrales. La Satisfacci\'on (M-03) refleja la frustraci\'on de los m\'edicos (CSAT promedio de 2.22/5) documentada desde el Escenario 3. La Libertad de Riesgo (M-04) evidencia que la tasa de errores de facturaci\'on (5\%) quintuplica el umbral RNF-03 ($\le$1\%), confirmando cuantitativamente el problema de doble cobro reportado en los 425 incidentes de facturaci\'on del dataset de 2025.
+Dos de las cinco m\'etricas \textbf{no cumplen} sus umbrales. La Satisfacci\'on (M-03) refleja la frustraci\'on de los m\'edicos (CSAT promedio de 2.22/5) documentada desde el Escenario 3. La Libertad de Riesgo (M-04) evidencia que la tasa de errores de facturaci\'on (5.01\%) quintuplica el umbral RNF-03 ($\le$1\%), confirmando cuantitativamente el problema de doble cobro reportado en los 426 incidentes de facturaci\'on del dataset de 2025.
 \end{tcolorbox}
 
 % ============================================================

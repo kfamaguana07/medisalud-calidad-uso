@@ -29,7 +29,7 @@ evaluación más cercano a la experiencia real del usuario.
    (facturación para calidad interna, portal de citas para calidad externa, registro de HCE para
    calidad en uso).
 
-4. **Análisis de datos reales** (`analisis_incidentes.py`) sobre el dataset de 3,000 incidentes
+4. **Análisis de datos reales** (`analisis_incidentes.py`) sobre el dataset de 3,006 incidentes
    reportados en 2025, para verificar en la práctica el argumento del escenario:
    - Distribución de incidentes por módulo, rol de usuario y sede.
    - Extracción de los tiempos mencionados en el texto libre de los incidentes (regex) para
@@ -79,10 +79,10 @@ otros estándar de una distribución LaTeX completa.
 
 | Indicador | Valor |
 |---|---|
-| Total de incidentes analizados | 3,000 |
+| Total de incidentes analizados | 3,006 |
 | Módulo con más incidentes | HCE (769, 25.6%) |
 | Sede con más incidentes | Quito (1,035) |
-| Incidentes de "nota de evolución tarda Xs" | 63 |
+| Incidentes de "nota de evolución tarda Xs" | 64 |
 | Tiempo promedio reportado | 22.1 s |
 | Umbral definido en RNF-01 | 8.0 s |
 | % de incumplimiento de RNF-01 | 100% |

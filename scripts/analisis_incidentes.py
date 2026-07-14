@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use('Agg')  # backend sin interfaz grafica, para guardar a archivo
 import matplotlib.pyplot as plt
 
-CSV_PATH = 'incidentes_2025_iso_25022.csv'
+CSV_PATH = 'data/incidentes_2025_iso_25022.csv'
 
 # ============================================================
 # 1. CARGA DEL DATASET

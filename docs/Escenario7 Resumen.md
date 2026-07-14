@@ -22,7 +22,7 @@ críticos, duplicados y valores fuera de rango.
      horas pico (10–12h).
    - `data/encuesta_satisfaccion.csv` (150 respuestas): encuestas CSAT generadas por
      `generar_encuestas.py`, con sesgo intencional por rol (médicos con puntajes bajos).
-   - `data/incidentes_2025_iso_25022.csv` (3,000 incidentes): dataset real de incidentes
+   - `data/incidentes_2025_iso_25022.csv` (3,006 incidentes): dataset real de incidentes
      reportados en 2025, utilizado desde el Escenario 2.
 
 2. **Validación de datos** (`01_validacion_datos.py`) con tres verificaciones:
@@ -56,7 +56,7 @@ scripts/
 data/
 ├── logs_hce.csv                   # 3,150 registros de HCE
 ├── encuesta_satisfaccion.csv      # 150 respuestas CSAT
-└── incidentes_2025_iso_25022.csv  # 3,000 incidentes (dataset original)
+└── incidentes_2025_iso_25022.csv  # 3,006 incidentes (dataset original)
 
 reportes/
 ├── informe_escenario7.tex         # Fuente LaTeX del informe
